@@ -13,6 +13,11 @@
 	<context:property-placeholder/>
 	
 	<corba:import namespace="p45-pi-01" names="plot_server" />
+	
+	<bean class="gda.rcp.util.OSGIServiceRegister">
+		<property name="class" value="uk.ac.diamond.scisoft.analysis.PlotServer" />
+		<property name="service" ref="plot_server" />
+	</bean>
 
 	<bean class="gda.spring.FindableNameSetterPostProcessor" />
 
