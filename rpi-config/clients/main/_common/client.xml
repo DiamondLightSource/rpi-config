@@ -1,0 +1,52 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:corba="http://www.diamond.ac.uk/schema/gda/corba"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.diamond.ac.uk/schema/gda/corba http://www.diamond.ac.uk/schema/gda/corba/gda-corba-1.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder/>
+	
+	<corba:import namespace="p45-pi-01" names="plot_server" />
+
+	<bean class="gda.spring.FindableNameSetterPostProcessor" />
+
+	<bean class="gda.factory.corba.util.AdapterFactory">
+		<constructor-arg index="0" value="${gda.factory.factoryName}" />
+		<constructor-arg index="1">
+			<bean class="gda.spring.NetServiceFactoryBean" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="ScanDataPointServer" class="uk.ac.gda.remoting.client.GdaRmiProxyFactoryBean">
+		<property name="serviceUrl" value="${gda.rmi.prefix}ScanDataPointServer" />
+		<property name="serviceInterface" value="gda.scan.IScanDataPointServer" />
+		<property name="refreshStubOnConnectFailure" value="true" />
+	</bean>
+
+	<bean id="simpleScannable1" class="gda.device.scannable.SimpleScannable">
+		<property name="currentPosition">
+			<bean class="java.lang.Double">
+				<constructor-arg type="double" value="1.2" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="testLinearMotorX" class="gda.device.motor.DummyMotor">
+		<property name="name" value="testLinearMotorX" />
+	</bean>
+
+	<bean id="testLinearSMX" class="gda.device.scannable.ScannableMotor">
+		<property name="name" value="testLinearSMX" />
+		<property name="protectionLevel" value="2" />
+		<property name="motorName" value="testLinearMotorX" />
+		<property name="hardwareUnitString" value="mm" />
+	</bean>
+
+
+</beans>
