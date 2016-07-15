@@ -27,12 +27,12 @@
 	<bean id="plot_server" class="uk.ac.diamond.scisoft.analysis.plotserver.PlotServerBase"/>
 	
 	<!-- Replaces ScanDataStore -->
--	<!-- This can't be replaced with gda:rmi-export as it doesn't yet handle plain objects retrieved via SpEL -->
--	<bean class="uk.ac.gda.remoting.server.GdaRmiServiceExporter">
--		<property name="serviceName" value="gda/ScanDataPointServer" />
--		<property name="service" value="#{ T(gda.scan.ScanDataPointServer).getInstance() }" />
--		<property name="serviceInterface" value="gda.scan.IScanDataPointServer" />
--	</bean>
+	<!-- This can't be replaced with gda:rmi-export as it doesn't yet handle plain objects retrieved via SpEL -->
+	<bean class="uk.ac.gda.remoting.server.GdaRmiServiceExporter">
+		<property name="serviceName" value="gda/ScanDataPointServer" />
+		<property name="service" value="#{ T(gda.scan.ScanDataPointServer).getInstance() }" />
+		<property name="serviceInterface" value="gda.scan.IScanDataPointServer" />
+	</bean>
 
 	<!--for an 'empty' configuration, remove the imports below, and the other xml files and directories inside the xml/server directory-->
 	<import resource="demonstration.xml" />

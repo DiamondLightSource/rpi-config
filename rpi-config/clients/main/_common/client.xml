@@ -49,14 +49,14 @@
 <!-- 	<corba:import namespace="${gda.beamline.name}" names="plot_server" /> -->
 	<bean id="plot_server" class="uk.ac.diamond.scisoft.analysis.plotserver.PlotServerBase"/>
 	
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	<!-- <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="uk.ac.diamond.scisoft.analysis.PlotServerProvider.setPlotServer" />
 		<property name="arguments">
 			<list>
 				<ref bean="plot_server" />
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 	
 </beans>
