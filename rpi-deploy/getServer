@@ -3,7 +3,7 @@
 #downloads, unzips and sets up the server 
 
 #Get Current Server version number
-cd 
+cd ../..
 wget http://jenkins.diamond.ac.uk:8080/job/GDA.master-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/product_version_number.txt
 vnum=$(cat product_version_number.txt)
 
@@ -25,6 +25,7 @@ git clone https://github.com/DiamondLightSource/rpi-config.git
 configPath=$PWD
 
 #cleans up and adds symbolic link to start script
-cd 
+cd ../../..
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
-rm -rf rpi-config 
+rm -rf rpi-config
+rm product_version_number.txt 
