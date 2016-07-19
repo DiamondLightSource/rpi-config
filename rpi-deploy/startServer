@@ -1,0 +1,7 @@
+#!/bin/bash
+#Starts GDA server
+
+pwd
+echo $PWD
+#export BEAMLINE=p45-pi-01
+#java -jar ../../plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
