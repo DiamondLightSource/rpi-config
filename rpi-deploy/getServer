@@ -29,3 +29,4 @@ cd ..
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
 rm product_version_number.txt 
 rm $fullServerName$ext
+rm -rf rpi-config
