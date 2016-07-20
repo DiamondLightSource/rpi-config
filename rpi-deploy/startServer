@@ -2,7 +2,7 @@
 #Starts GDA server
 
 #Finds Directory of Script
-DIR="$(dirname "$(readlink -f "$0")")
+DIR="$(dirname "$(readlink -f "$0")")"
 
 #sets up beamline
 export BEAMLINE=p45-pi-01
