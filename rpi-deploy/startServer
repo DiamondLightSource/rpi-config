@@ -1,7 +1,11 @@
 #!/bin/bash
 #Starts GDA server
 
-pwd
-echo $PWD
-#export BEAMLINE=p45-pi-01
-#java -jar ../../plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
+#Finds Directory of Script
+DIR="$(dirname "$(readlink -f "$0")")
+
+#sets up beamline
+export BEAMLINE=p45-pi-01
+
+#Runs the launcher
+java -jar $DIR/../../../../plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
