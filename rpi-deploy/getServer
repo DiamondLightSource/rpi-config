@@ -32,7 +32,7 @@ cd wiringPi/
 cd ..
 curl -s get.pi4j.com | sudo bash
 sudo su
-export CLASSPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar"
+echo 'export CLASSPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar"'  >> /etc/bash.bashrc
 exit
 
 #cleans up and adds symbolic link to start script
