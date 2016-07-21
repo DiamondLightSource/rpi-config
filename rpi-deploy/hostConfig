@@ -10,6 +10,7 @@ sudo apt-get -y install oracle-java8-jdk
 cd 
 sudo su
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
 exit
 
 #updates host and IP params
