@@ -5,14 +5,6 @@
 sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install oracle-java8-jdk
 
-
-#set JAVA_HOME to the path of the new java install
-cd 
-sudo su
-echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc
-echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
-exit
-
 #updates host and IP params
 cd /etc
 sudo sed -i -e 's/raspberrypi/p45-pi-01/g' hostname

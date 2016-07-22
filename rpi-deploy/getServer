@@ -31,10 +31,6 @@ cd wiringPi/
 ./build
 cd ..
 curl -s get.pi4j.com | sudo bash
-sudo su
-echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar"'  >> /etc/bash.bashrc
-echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar"'  >> /root/.bashrc
-exit
 
 #cleans up and adds symbolic link to start script
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
