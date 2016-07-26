@@ -8,7 +8,7 @@ import com.pi4j.io.gpio.RaspiPin as RaspiPin
 
 class Interface:
     def __init__(self):
-        self.gpio = GpioFactory.GetInstance()
+        self.gpio = GpioFactory.getInstance()
         self.pins = []
     
     def newPin(self, num, pinType):    #creates new pin object and sets up input/output

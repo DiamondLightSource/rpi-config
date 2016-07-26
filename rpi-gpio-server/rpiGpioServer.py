@@ -3,6 +3,7 @@
 import rpiGpioInterface.py as Interface
 import rpiGpioParser.py as Parser
 import socket
+import sys
 
 def socketSetup():
     HOST = None # Symbolic name meaning all available interfaces 

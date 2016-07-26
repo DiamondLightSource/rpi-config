@@ -1,4 +1,5 @@
 import socket
+import sys
 
 def connectToSocket(hostname, port):
     HOST = hostname # The remote host
@@ -31,8 +32,12 @@ def connectToSocket(hostname, port):
 
     return s
 
-s = connectToSocket("localhost", 50007)
-s.send("Hello, world")
-data = s.recv(1024)
+s = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
+s.send("1,n,o,None,0")
+data = s.recv(10240)
+print data
+s.send("1,s,o,PULSE,1000")
+data = s.recv(10240)
+print data
 s.close()
 print "Received", repr(data)

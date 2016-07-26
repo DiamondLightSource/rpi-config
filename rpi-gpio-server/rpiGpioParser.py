@@ -4,10 +4,12 @@ class Parser:
     def __init__(self, interface):
         self.io = interface
     
-    def Parse(self, inputString):
-        return self.returnCodes(self.CommandInterpreter(self.splitCommandString(inputString)))
+    def parse(self, inputString):
+        num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
+        xcode, returnMessage = self.commandInterpreter(num, instr, pinType, pinState, duration)
+        return self.returnCodes(xcode, returnMessage)
     
-    def CommandInterpreter(self, num, instr, pinType, pinState, duration): #calls into the GPIO interface based on recieved input
+    def commandInterpreter(self, num, instr, pinType, pinState, duration): #calls into the GPIO interface based on recieved input
         returnMessage = None
         if (instr == "n"):
             xcode = self.io.newPin(num, pinType) #saves exit code to report success
@@ -47,6 +49,7 @@ class Parser:
     
     def splitCommandString(self, inputString): #takes the input string and splits it into constituent components
         stringComponents = inputString.split(",")
+        print(stringComponents)
         num = int(stringComponents[0])
         instr = stringComponents[1].lower()
         pinType = stringComponents[2].lower()
