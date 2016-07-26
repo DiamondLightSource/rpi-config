@@ -1,5 +1,6 @@
 import socket
 import sys
+import time
 
 def connectToSocket(hostname, port):
     HOST = hostname # The remote host
@@ -33,17 +34,18 @@ def connectToSocket(hostname, port):
     return s
 
 s = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
-s.send("1,n,o,None,0")
+s.send("29,n,o,None,0")
 data = s.recv(1024)
 print data
-s.send("1,s,o,PULSE,1000")
+s.send("29,s,o,PULSE,1000")
 data = s.recv(1024)
 print data
-s.send("8,n,i,None,0")
+s.send("1,n,i,None,0")
 try:
     while True:
-        s.send("8,g,i,None,0")
+        s.send("1,g,i,None,0")
         data = s.recv(1024)
         print data
+        #time.sleep(1)
 finally:        
     s.close()

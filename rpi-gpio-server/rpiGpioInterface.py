@@ -61,5 +61,6 @@ class Interface:
         return None
             
     def __del__(self):  #attempts to safely shutdown gpio on object deletion
+        print("SHUTDOWN") 
         self.gpio.shutdown()
         
