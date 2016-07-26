@@ -1,6 +1,7 @@
 #!/usr/bin/env jython
 
-import Interface
+import rpiGpioInterface.py as Interface
+import rpiGpioParser.py as Parser
 import socket
 
 def socketSetup():
@@ -35,14 +36,18 @@ def socketSetup():
         
     return s
 
+gpio = Interface.Interface()
+parser = Parser.Parser(gpio)
+
 sock = socketSetup()
 while True:
     conn, addr = sock.accept() 
     print ("Connected by", addr) 
-    while 1:
+    while True:
         data = conn.recv(1024) 
         if not data: 
             break 
+        data = parser.parse(data)
         conn.send(data)
     
     conn.close()

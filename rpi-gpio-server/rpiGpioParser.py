@@ -1,6 +1,59 @@
 #!/usr/bin/env jython
 
 class Parser:
-    def __init__(self):
-        pass
+    def __init__(self, interface):
+        self.io = interface
+    
+    def Parse(self, inputString):
+        return self.returnCodes(self.CommandInterpreter(self.splitCommandString(inputString)))
+    
+    def CommandInterpreter(self, num, instr, pinType, pinState, duration): #calls into the GPIO interface based on recieved input
+        returnMessage = None
+        if (instr == "n"):
+            xcode = self.io.newPin(num, pinType) #saves exit code to report success
+        elif (instr == "s"):
+            xcode = self.io.setPin(num, pinState, duration)
+        elif (instr == "g"):
+            temp = self.io.getPinState(num)
+            if (temp == 3):
+                xcode = temp
+            else:
+                xcode = -1      #data to return
+                returnMessage = temp
+        else:
+            xcode = 5 #instruction Not recognised
+        return xcode, returnMessage
+        
+        
+    def returnCodes(self, xcode, returnMessage):
+        if (xcode == -1):
+            returnMessage = "The operation completed successfully,DATA:"+returnMessage
+        elif (xcode == 0):
+            returnMessage = "The operation completed successfully"
+        elif (xcode == 1):
+            returnMessage = "ERROR: The pin is already in use & the operation terminated unsuccessfully"
+        elif (xcode == 2):
+            returnMessage = "ERROR: Type or state declaration was not recognised"
+        elif (xcode == 3):
+            returnMessage = "ERROR: Pin has not been configured in that position"
+        elif (xcode == 4):
+            returnMessage = "ERROR: pulse duration was not defined"
+        elif (xcode == 5):
+            returnMessage = "ERROR: instruction not recognised or supported"
+        else:
+            returnMessage = "ERROR: an unknown error has occured. ERROR CODE:"+str(xcode)
+        
+        return returnMessage
+    
+    def splitCommandString(self, inputString): #takes the input string and splits it into constituent components
+        stringComponents = inputString.split(",")
+        num = int(stringComponents[0])
+        instr = stringComponents[1].lower()
+        pinType = stringComponents[2].lower()
+        pinState = stringComponents[3].upper()
+        duration = int(stringComponents[4])
+        return num, instr, pinType, pinState, duration
+    
+    
+        
     

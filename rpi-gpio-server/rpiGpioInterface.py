@@ -6,13 +6,12 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput as GpioPinDigitalOutput
 import com.pi4j.io.gpio.PinState as PinState
 import com.pi4j.io.gpio.RaspiPin as RaspiPin
 
-
 class Interface:
     def __init__(self):
         self.gpio = GpioFactory.GetInstance()
         self.pins = []
     
-    def newPin(self, num, pinType, initialValue = None):    #creates new pin object and sets up input/output
+    def newPin(self, num, pinType):    #creates new pin object and sets up input/output
         for i in self.pins: #check pin is not already in use
             if i[0] == num:
                 return 1    #pin already in use
