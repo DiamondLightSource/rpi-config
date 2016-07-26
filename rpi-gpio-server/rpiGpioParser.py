@@ -29,7 +29,7 @@ class Parser:
         
     def returnCodes(self, xcode, returnMessage):
         if (xcode == -1):
-            returnMessage = "The operation completed successfully,DATA:"+returnMessage
+            returnMessage = "The operation completed successfully,DATA:"+str(returnMessage)
         elif (xcode == 0):
             returnMessage = "The operation completed successfully"
         elif (xcode == 1):

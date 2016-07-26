@@ -34,10 +34,16 @@ def connectToSocket(hostname, port):
 
 s = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
 s.send("1,n,o,None,0")
-data = s.recv(10240)
+data = s.recv(1024)
 print data
 s.send("1,s,o,PULSE,1000")
-data = s.recv(10240)
+data = s.recv(1024)
 print data
-s.close()
-print "Received", repr(data)
+s.send("8,n,i,None,0")
+try:
+    while True:
+        s.send("8,g,i,None,0")
+        data = s.recv(1024)
+        print data
+finally:        
+    s.close()

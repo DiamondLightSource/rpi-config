@@ -5,6 +5,7 @@ import com.pi4j.io.gpio.GpioFactory as GpioFactory
 import com.pi4j.io.gpio.GpioPinDigitalOutput as GpioPinDigitalOutput
 import com.pi4j.io.gpio.PinState as PinState
 import com.pi4j.io.gpio.RaspiPin as RaspiPin
+import com.pi4j.io.gpio.PinPullResistance as PinPullResistance
 
 class Interface:
     def __init__(self):

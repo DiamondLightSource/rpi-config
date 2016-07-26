@@ -1,12 +1,12 @@
 #!/usr/bin/env jython
 
-import rpiGpioInterface.py as Interface
-import rpiGpioParser.py as Parser
+import rpiGpioInterface as Interface
+import rpiGpioParser as Parser
 import socket
 import sys
 
 def socketSetup():
-    HOST = None # Symbolic name meaning all available interfaces 
+    HOST = "p45-pi-01" # Symbolic name meaning all available interfaces 
     PORT = 50007 # Arbitrary non-privileged port 
     s = None 
     for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM, 0, socket.AI_PASSIVE):
