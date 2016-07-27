@@ -1,9 +1,17 @@
 #!/usr/bin/env jython
 
-class Parser:
+class Parser(Thread, interface):
     def __init__(self, interface):
         self.io = interface
-    
+        self.parseQueue = True
+
+    def run(self):
+        global commandQueue, outputQueue 
+        while parseQueue:
+            command = commandQueue.get()
+            outputText = self.parse(command)
+            outputQueue.put(outputText)
+            
     def parse(self, inputString):
         num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
         xcode, returnMessage = self.commandInterpreter(num, instr, pinType, pinState, duration)
@@ -43,7 +51,7 @@ class Parser:
         elif (xcode == 5):
             returnMessage = "ERROR: instruction not recognised or supported"
         else:
-            returnMessage = "ERROR: an unknown error has occured. ERROR CODE:"+str(xcode)
+            returnMessage = "ERROR: an unknown error has returnoccured. ERROR CODE:"+str(xcode)
         
         return returnMessage
     
@@ -56,7 +64,5 @@ class Parser:
         pinState = stringComponents[3].upper()
         duration = int(stringComponents[4])
         return num, instr, pinType, pinState, duration
-    
-    
+                    
         
-    
