@@ -1,6 +1,6 @@
 #!/usr/bin/env jython
 
-class Parser(Thread, interface):
+class Parser(Thread):
     def __init__(self, interface):
         self.io = interface
         self.parseQueue = True
@@ -51,7 +51,7 @@ class Parser(Thread, interface):
         elif (xcode == 5):
             returnMessage = "ERROR: instruction not recognised or supported"
         else:
-            returnMessage = "ERROR: an unknown error has returnoccured. ERROR CODE:"+str(xcode)
+            returnMessage = "ERROR: an unknown error has occured. ERROR CODE:"+str(xcode)
         
         return returnMessage
     

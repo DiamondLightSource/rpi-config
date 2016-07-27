@@ -6,7 +6,6 @@ import socket
 import sys
 import Queue
 from java.lang import Thread, InterruptedException
-import thread
 
 def socketSetup(port):
     HOST = "p45-pi-01" # Symbolic name meaning all available interfaces 
@@ -41,14 +40,14 @@ def socketSetup(port):
     return s
 
 class socketListener(Thread):       #controls input socket, appends data to queue for processing
-    def __init__(self):
+    def __init__(self, socket):
         self.socket = socket
         self.listen = True
         
     def run(self):
         global commandQueue
         while self.listen:
-            conn, addr = socket.accept() 
+            conn, addr = self.socket.accept() 
             print ("Connected by", addr) 
             while self.listen:
                 data = conn.recv(1024) 

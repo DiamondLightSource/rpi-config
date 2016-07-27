@@ -1,6 +1,8 @@
 import socket
 import sys
 import time
+import Queue
+from java.lang import Thread, InterruptedException
 
 def connectToSocket(hostname, port):
     HOST = hostname # The remote host
@@ -33,19 +35,51 @@ def connectToSocket(hostname, port):
 
     return s
 
-s = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
-s.send("29,n,o,None,0")
-data = s.recv(1024)
-print data
-s.send("29,s,o,PULSE,1000")
-data = s.recv(1024)
-print data
-s.send("1,n,i,None,0")
+class socketSender(Thread):      #controls the response socket and sends all response messages from commands
+    def __init__(self, socket):
+        self.socket = socket
+        self.respone = True
+        
+    def run(self):
+        global sendQueue
+        while self.respone:
+            conn, addr = self.socket.accept()
+            print("Sending Commands to:", addr)
+            while self.response:
+                conn.send(outputQueue.get())
+                
+class socketListener(Thread):       #controls input socket, appends data to queue for processing
+    def __init__(self, socket):
+        self.socket = socket
+        self.listen = True
+        
+    def run(self):
+        while self.listen:
+            data = conn.recv(1024) 
+            if not data: 
+                break 
+            print(data)
+            
+        conn.close()
+
+command = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
+response = connectToSocket("p45-pi-01.diamond.ac.uk", 50008)
+
+sendQueue = Queue.Queue()
+
+instructions = socketSender(command)
+responses = socketListener(response)
+
+instructions.start()
+responses.start()
+
+sendQueue.put("29,n,o,None,0")
+sendQueue.put("29,s,o,PULSE,1000")
+sendQueue.put("1,n,i,None,0")
 try:
     while True:
-        s.send("1,g,i,None,0")
-        data = s.recv(1024)
-        print data
-        #time.sleep(1)
+        sendQueue.put("1,g,i,None,0")
+
+        time.sleep(1)
 finally:        
     s.close()
