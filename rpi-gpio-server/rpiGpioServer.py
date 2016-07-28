@@ -45,15 +45,15 @@ class socketListener(Thread):       #controls input socket, appends data to queu
         
     def run(self):
         while self.listen:
-            conn, addr = self.socket.accept() 
+            self.conn, self.addr = self.socket.accept() 
             print ("Connected by", addr) 
             while self.listen:
-                data = conn.recv(1024) 
+                data = self.conn.recv(1024) 
                 if not data: 
                     break 
                 Queues.commandQueue.put(data)
             
-            conn.close()
+            self.conn.close()
 
 class parseController(Thread):      #creates and controls parser threads
     def __init__(self, interface):  #increasing and decreasing to meet demand
@@ -72,7 +72,7 @@ class parseController(Thread):      #creates and controls parser threads
                 pass    
                                     
     def addParser(self):
-        p = Parser.Parser(self.io, self.commands)
+        p = Parser.Parser(self.io)
         self.parserList.append(p)
         self.parserList[-1].start()
         
@@ -83,15 +83,14 @@ class parseController(Thread):      #creates and controls parser threads
 class socketResponder(Thread):      #controls the response socket and sends all response messages from commands
     def __init__(self, socket):
         self.socket = socket
-        self.respone = True
+        self.response = True
         
     def run(self):
-        global outputQueue
-        while self.respone:
+        while self.response:
             conn, addr = self.socket.accept()
             print("Sending Responses to:", addr)
             while self.response:
-                conn.send(outputQueue.get())
+                conn.send(Queues.outputQueue.get())
         
                 
 Queues.init()
