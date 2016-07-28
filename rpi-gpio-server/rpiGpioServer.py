@@ -53,7 +53,8 @@ class socketListener(Thread):       #controls input socket, appends data to queu
                     break 
                 commands = data.split("//")
                 for c in commands:
-                    Queues.commandQueue.put(c)
+                    if c[0] != '':
+                        Queues.commandQueue.put(c)
             
             self.conn.close()
 
@@ -66,7 +67,7 @@ class parseController(Thread):      #creates and controls parser threads
     
     def run(self):
         while self.parse:
-            if Queues.commandQueue.qsize() > 5:
+            if Queues.commandQueue.qsize() > 10:
                 self.addParser()
             elif Queues.commandQueue.qsize() < 2 and len(self.parserList) > 1:
                 self.removeParser()
