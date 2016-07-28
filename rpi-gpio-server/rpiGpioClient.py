@@ -38,16 +38,12 @@ def connectToSocket(hostname, port):
 class socketSender(Thread):      #controls the response socket and sends all response messages from commands
     def __init__(self, socket):
         self.socket = socket
-        self.respone = True
+        self.response = True
         
     def run(self):
-        global sendQueue
-        while self.respone:
-            conn, addr = self.socket.accept()
-            print("Sending Commands to:", addr)
-            while self.response:
-                conn.send(outputQueue.get())
-                
+        while self.response:
+            self.socket.send(sendQueue.get())
+            
 class socketListener(Thread):       #controls input socket, appends data to queue for processing
     def __init__(self, socket):
         self.socket = socket
@@ -55,12 +51,12 @@ class socketListener(Thread):       #controls input socket, appends data to queu
         
     def run(self):
         while self.listen:
-            data = conn.recv(1024) 
+            data = self.socket.recv(1024) 
             if not data: 
                 break 
             print(data)
             
-        conn.close()
+        self.socket.close()
 
 command = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
 response = connectToSocket("p45-pi-01.diamond.ac.uk", 50008)

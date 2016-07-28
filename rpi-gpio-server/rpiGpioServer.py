@@ -46,7 +46,7 @@ class socketListener(Thread):       #controls input socket, appends data to queu
     def run(self):
         while self.listen:
             self.conn, self.addr = self.socket.accept() 
-            print ("Connected by", addr) 
+            print ("Connected by", self.addr) 
             while self.listen:
                 data = self.conn.recv(1024) 
                 if not data: 
