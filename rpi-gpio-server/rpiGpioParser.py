@@ -17,7 +17,7 @@ class Parser(Thread):
     def parse(self, inputString):
         num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
         xcode, returnMessage = self.commandInterpreter(num, instr, pinType, pinState, duration)
-        return self.returnCodes(xcode, returnMessage)
+        return self.returnCodes(num, xcode, returnMessage)
     
     def commandInterpreter(self, num, instr, pinType, pinState, duration): #calls into the GPIO interface based on recieved input
         returnMessage = None
@@ -37,23 +37,23 @@ class Parser(Thread):
         return xcode, returnMessage
         
         
-    def returnCodes(self, xcode, returnMessage):
+    def returnCodes(self, num, xcode, returnMessage):
         if (xcode == -1):
-            returnMessage = "The operation completed successfully,DATA:"+str(returnMessage)
+            returnMessage = str(num)+",True,"+str(returnMessage)+",The operation completed successfully//"
         elif (xcode == 0):
-            returnMessage = "The operation completed successfully"
+            returnMessage = str(num)+",True,None,The operation completed successfully//"
         elif (xcode == 1):
-            returnMessage = "ERROR: The pin is already in use & the operation terminated unsuccessfully"
+            returnMessage = str(num)+",False,None,ERROR: The pin is already in use & the operation terminated unsuccessfully//"
         elif (xcode == 2):
-            returnMessage = "ERROR: Type or state declaration was not recognised"
+            returnMessage = str(num)+",False,None,ERROR: Type or state declaration was not recognised//"
         elif (xcode == 3):
-            returnMessage = "ERROR: Pin has not been configured in that position"
+            returnMessage = str(num)+",False,None,ERROR: Pin has not been configured in that position//"
         elif (xcode == 4):
-            returnMessage = "ERROR: pulse duration was not defined"
+            returnMessage = str(num)+",False,None,ERROR: pulse duration was not defined//"
         elif (xcode == 5):
-            returnMessage = "ERROR: instruction not recognised or supported"
+            returnMessage = str(num)+",False,None,ERROR: instruction not recognised or supported//"
         else:
-            returnMessage = "ERROR: an unknown error has occured. ERROR CODE:"+str(xcode)
+            returnMessage = str(num)+",False,None,ERROR: an unknown error has occured. ERROR CODE:"+str(xcode)+"//"
         
         return returnMessage
     

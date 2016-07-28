@@ -96,6 +96,7 @@ class socketResponder(Thread):      #controls the response socket and sends all 
                     self.conn.send(Queues.outputQueue.get())
                 except:
                     self.conn.close()
+                    break
                 
 Queues.init()
 gpio = Interface.Interface()
