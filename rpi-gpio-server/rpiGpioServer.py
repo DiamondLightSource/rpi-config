@@ -1,10 +1,9 @@
 #!/usr/bin/env jython
-
+import rpiQueues as Queues
 import rpiGpioInterface as Interface
 import rpiGpioParser as Parser
 import socket
 import sys
-import Queue
 from java.lang import Thread, InterruptedException
 
 def socketSetup(port):
@@ -45,7 +44,6 @@ class socketListener(Thread):       #controls input socket, appends data to queu
         self.listen = True
         
     def run(self):
-        global commandQueue
         while self.listen:
             conn, addr = self.socket.accept() 
             print ("Connected by", addr) 
@@ -53,7 +51,7 @@ class socketListener(Thread):       #controls input socket, appends data to queu
                 data = conn.recv(1024) 
                 if not data: 
                     break 
-                commandQueue.put(data)
+                Queues.commandQueue.put(data)
             
             conn.close()
 
@@ -66,15 +64,15 @@ class parseController(Thread):      #creates and controls parser threads
     
     def run(self):
         while self.parse:
-            if commandQueue.qsize() > 5:
+            if Queues.commandQueue.qsize() > 5:
                 self.addParser()
-            elif commandQueue.qsize() < 2 and len(parserList) > 1:
+            elif Queues.commandQueue.qsize() < 2 and len(self.parserList) > 1:
                 self.removeParser()
             else:
                 pass    
                                     
     def addParser(self):
-        p = Parser.Parser(self.io)
+        p = Parser.Parser(self.io, self.commands)
         self.parserList.append(p)
         self.parserList[-1].start()
         
@@ -96,8 +94,7 @@ class socketResponder(Thread):      #controls the response socket and sends all 
                 conn.send(outputQueue.get())
         
                 
-commandQueue = Queue.Queue()
-outputQueue = Queue.Queue()
+Queues.init()
 gpio = Interface.Interface()
 listener = socketSetup(50007)
 output = socketSetup(50008)

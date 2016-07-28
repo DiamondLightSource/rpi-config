@@ -1,4 +1,6 @@
 #!/usr/bin/env jython
+import rpiQueues as Queues
+from java.lang import Thread, InterruptedException
 
 class Parser(Thread):
     def __init__(self, interface):
@@ -6,11 +8,10 @@ class Parser(Thread):
         self.parseQueue = True
 
     def run(self):
-        global commandQueue, outputQueue 
-        while parseQueue:
-            command = commandQueue.get()
+        while self.parseQueue:
+            command = Queues.commandQueue.get()
             outputText = self.parse(command)
-            outputQueue.put(outputText)
+            Queues.outputQueue.put(outputText)
             
     def parse(self, inputString):
         num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
