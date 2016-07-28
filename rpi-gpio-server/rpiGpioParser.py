@@ -10,7 +10,7 @@ class Parser(Thread):
     def run(self):
         while self.parseQueue:
             command = Queues.commandQueue.get()
-            if type(command).__name__ == 'list':
+            if command != "":
                 outputText = self.parse(command)
                 Queues.outputQueue.put(outputText)
             
