@@ -92,9 +92,10 @@ class socketResponder(Thread):      #controls the response socket and sends all 
             self.conn, addr = self.socket.accept()
             print("Sending Responses to:", addr)
             while self.response:
-                self.conn.send(Queues.outputQueue.get())
-        
-            self.conn.close()
+                try:
+                    self.conn.send(Queues.outputQueue.get())
+                except:
+                    self.conn.close()
                 
 Queues.init()
 gpio = Interface.Interface()
