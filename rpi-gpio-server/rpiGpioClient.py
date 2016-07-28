@@ -69,12 +69,12 @@ responses = socketListener(response)
 instructions.start()
 responses.start()
 
-sendQueue.put("29,n,o,None,0")
-sendQueue.put("29,s,o,PULSE,1000")
-sendQueue.put("1,n,i,None,0")
+sendQueue.put("29,n,o,None,0//")
+sendQueue.put("29,s,o,PULSE,1000//")
+sendQueue.put("1,n,i,None,0//")
 try:
     while True:
-        sendQueue.put("1,g,i,None,0")
+        sendQueue.put("1,g,i,None,0//")
         time.sleep(1)
 finally:        
     s.close()

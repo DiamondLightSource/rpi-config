@@ -51,7 +51,9 @@ class socketListener(Thread):       #controls input socket, appends data to queu
                 data = self.conn.recv(1024) 
                 if not data: 
                     break 
-                Queues.commandQueue.put(data)
+                commands = data.split("//")
+                for c in commands:
+                    Queues.commandQueue.put(c)
             
             self.conn.close()
 
