@@ -75,6 +75,6 @@ sendQueue.put("1,n,i,None,0//")
 try:
     while True:
         sendQueue.put("1,g,i,None,0//")
-        time.sleep(1)
+        time.sleep(0.1)
 finally:        
     s.close()

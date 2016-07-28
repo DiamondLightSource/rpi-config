@@ -53,8 +53,7 @@ class socketListener(Thread):       #controls input socket, appends data to queu
                     break 
                 commands = data.split("//")
                 for c in commands:
-                    if c[0] != '':
-                        Queues.commandQueue.put(c)
+                    Queues.commandQueue.put(c)
             
             self.conn.close()
 
@@ -90,11 +89,12 @@ class socketResponder(Thread):      #controls the response socket and sends all 
         
     def run(self):
         while self.response:
-            conn, addr = self.socket.accept()
+            self.conn, addr = self.socket.accept()
             print("Sending Responses to:", addr)
             while self.response:
-                conn.send(Queues.outputQueue.get())
+                self.conn.send(Queues.outputQueue.get())
         
+            self.conn.close()
                 
 Queues.init()
 gpio = Interface.Interface()

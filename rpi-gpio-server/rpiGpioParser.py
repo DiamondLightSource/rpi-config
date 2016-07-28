@@ -10,8 +10,9 @@ class Parser(Thread):
     def run(self):
         while self.parseQueue:
             command = Queues.commandQueue.get()
-            outputText = self.parse(command)
-            Queues.outputQueue.put(outputText)
+            if type(command).__name__ == 'list':
+                outputText = self.parse(command)
+                Queues.outputQueue.put(outputText)
             
     def parse(self, inputString):
         num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
@@ -58,7 +59,7 @@ class Parser(Thread):
     
     def splitCommandString(self, inputString): #takes the input string and splits it into constituent components
         stringComponents = inputString.split(",")
-        print(stringComponents)
+        #print(stringComponents)
         num = int(stringComponents[0])
         instr = stringComponents[1].lower()
         pinType = stringComponents[2].lower()
