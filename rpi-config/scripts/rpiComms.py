@@ -86,7 +86,7 @@ class rpiCommunicator(Thread):
         logger.info("ready to parse:"+returnString)
         if returnString != "":
             returnComponents = returnString.split(",")
-            logger.info("Return Components:"+returnComponents)
+            logger.info(returnComponents)
             pin = returnComponents[0]
             success = returnComponents[1]
             dat = returnComponents[2]
