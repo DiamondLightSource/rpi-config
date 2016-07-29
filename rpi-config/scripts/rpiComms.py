@@ -49,6 +49,7 @@ class socketListener(Thread):      #controls the response socket and sends all r
                 break 
             data = data.split("//")
             for message in data:
+                logger.info("data:"+message)
                 commController.incomingQueue.put(message)
             
         self.socket.close()        
@@ -82,16 +83,20 @@ class rpiCommunicator(Thread):
             self.parse(self.incomingQueue.get())
             
     def parse(self, returnString):
+        logger.info("ready to parse:"+returnString)
         if returnString != "":
             returnComponents = returnString.split(",")
+            logger.info("Return Components:"+returnComponents)
             pin = returnComponents[0]
             success = returnComponents[1]
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in self.scannables:
                 if i.pin == pin:
-                    if success == "True":
+                    if str(success) == "True":
                         i.currentPosition = dat
+                    else:
+                        i.currentPosition = None
                     logger.info("Pin:"+str(pin)+", Message:"+message)
                     
 

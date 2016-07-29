@@ -14,9 +14,9 @@ class rpiScannable(ScannableBase):
 
     def getPosition(self):
         if self.ioState == "input":
-            self.currentPosition = None
+            self.currentPosition = "Not Set"
             rpiComms.commController.outgoingQueue.put(str(self.pin)+",g,i,None,0")
-            while self.currentPosition == None:
+            while self.currentPosition == "Not Set":
                 pass
             return self.currentPosition
         else:
