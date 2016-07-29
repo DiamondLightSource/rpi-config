@@ -6,6 +6,9 @@ from gda.configuration.properties import LocalProperties
 from gdascripts.messages import handle_messages
 from gda.jython import InterfaceProvider
 from gda.device.scannable import ScannableBase
+import rpiComms
+import rpiScannable
+from rpiComms import initaliseCommunicator
 
         
 def isLive():
@@ -46,6 +49,12 @@ try:
     showtime=showtimeClass('showtime')
     inctime=showincrementaltimeClass('inctime')
     actualTime=actualTimeClass("actualTime")
+    
+    rpiComms.initaliseCommunicator()
+    
+    led1=rpiScannable(29, "output")
+    button1=rpiScannable(1, "input")
+    
 
     #run user editable startup script 
     if isLive():

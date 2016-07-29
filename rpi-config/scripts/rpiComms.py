@@ -1,8 +1,9 @@
 import socket
 import Queue
 from java.lang import Thread, InterruptedException
-from imaplib import dat
+from org.slf4j import LoggerFactory
 
+logger = LoggerFactory.getLogger(__name__ + '.py')
 
 def connectToSocket(hostname, port, attempt = 1):
     HOST = hostname # The remote host
@@ -36,8 +37,6 @@ def connectToSocket(hostname, port, attempt = 1):
     return s
 
 
-
-
 class socketListener(Thread):      #controls the response socket and sends all response messages from commands
     def __init__(self, socket):
         self.socket = socket
@@ -52,9 +51,7 @@ class socketListener(Thread):      #controls the response socket and sends all r
             for message in data:
                 commController.incomingQueue.put(message)
             
-        self.socket.close()
-        
-        
+        self.socket.close()        
         
         
 class socketSender(Thread):      #controls the response socket and sends all response messages from commands
@@ -65,8 +62,6 @@ class socketSender(Thread):      #controls the response socket and sends all res
     def run(self):
         while self.send:
             self.socket.send(commController.outgoingQueue.get())
-            
-            
             
             
 class rpiCommunicator(Thread):
@@ -88,17 +83,17 @@ class rpiCommunicator(Thread):
             
     def parse(self, returnString):
         if returnString != "":
-            returnComponents = returnString.split","
+            returnComponents = returnString.split(",")
             pin = returnComponents[0]
             success = returnComponents[1]
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in self.scannables:
                 if i.pin == pin:
-                    i.currentposition = dat
+                    if success == "True":
+                        i.currentPosition = dat
+                    logger.info("Pin:"+str(pin)+", Message:"+message)
                     
-        
-
 
 def initaliseCommunicator():
     global commController
