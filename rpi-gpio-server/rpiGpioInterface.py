@@ -33,13 +33,13 @@ class Interface:
         if (pin == None):
             return 3 #Pin with that num not set up
         
-        if (state == "HIGH"):
+        if (state == "1"):
             pin[2].high()
-        elif  (state == "LOW"):
+        elif  (state == "0"):
             pin[2].low()
-        elif (state == "TOGGLE"):
+        elif (state == "-1"):
             pin[2].toggle()
-        elif (state == "PULSE"):
+        elif (state == "2"):
             if (duration > 0):
                 pin[2].pulse(duration)
             else:

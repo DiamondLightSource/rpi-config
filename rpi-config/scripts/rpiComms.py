@@ -97,7 +97,8 @@ class rpiCommunicator(Thread):
 
 def initaliseCommunicator():
     global commController
+    logger.info("StartingInit of Comm")
     commController = rpiCommunicator()
     commController.start()
-    
+    logger.info("initailised")
 

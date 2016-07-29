@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" >
+
+	<bean id="led1" class="rpiScannable">
+		<property name="pin" val=29 />
+		<property name="ioState" val="output"/>
+	</bean>
+	
+	<bean id="button1" class="rpiScannable">
+		<property name="pin" val=29/>
+		<property name="ioState" val="input"/>
+	</bean>
+
+</beans>
