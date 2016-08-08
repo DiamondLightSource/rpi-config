@@ -1,3 +1,4 @@
+#!/usr/bin/env jython
 import socket
 import sys
 import time
