@@ -5,7 +5,7 @@ from org.slf4j import LoggerFactory
 logger = LoggerFactory.getLogger(__name__ + '.py')
 
 class rpiScannable(ScannableBase):
-    def __init__(self, name, pin, ioState):
+    def __init__(self, pin, ioState):
         logger.debug("Init RPi Scannable at pin "+str(pin))
         self.pin = pin
         self.ioState = ioState
@@ -19,6 +19,9 @@ class rpiScannable(ScannableBase):
 
     def getIDString(self):
         return str(self.pin)+str(self.ioState)
+
+    def getFormattedPosition(self):
+        return self.getPosition()
 
     def getPosition(self):
         logger.debug("IOSTATE"+str(self.ioState))
