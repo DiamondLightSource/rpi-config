@@ -6,12 +6,12 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" >
 
 	<bean id="led1" class="rpiScannable">
-		<property name="pin" val=29 />
+		<property name="pin" val="29"/>
 		<property name="ioState" val="output"/>
 	</bean>
 	
 	<bean id="button1" class="rpiScannable">
-		<property name="pin" val=29/>
+		<property name="pin" val="29"/>
 		<property name="ioState" val="input"/>
 	</bean>
 

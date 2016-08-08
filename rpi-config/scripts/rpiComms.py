@@ -48,7 +48,7 @@ class socketListener(Thread):      #controls the response socket and sends all r
             if not data: 
                 break 
             data = data.split("//")
-            for message in data:
+            for message in range(0, len(data)-1):
                 logger.info("data:"+message)
                 commController.incomingQueue.put(message)
             
