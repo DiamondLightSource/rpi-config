@@ -17,6 +17,9 @@ class rpiScannable(ScannableBase):
     def isBusy(self):
         return False
 
+    def getIDString(self):
+        return str(self.pin)+str(self.ioState)
+
     def getPosition(self):
         if self.ioState == "input":
             self.currentPosition = "Not Set"
