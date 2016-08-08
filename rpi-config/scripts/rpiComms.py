@@ -98,10 +98,10 @@ class rpiCommunicator(Thread):
             message = returnComponents[3]
             for i in self.scannables:
                 if i.pin == pin:
-                    if str(success) == "True":
+                    if str(success) == True:
                         i.currentPosition = dat
                     else:
-                        i.currentPosition = None
+                        i.currentPosition = 0
                     logger.debug("Pin:"+str(pin)+", Message:"+message)
                     
 

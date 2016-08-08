@@ -52,8 +52,8 @@ try:
     
     rpiComms.initaliseCommunicator()
     
-    led1=rpiScannable.rpiScannable(29, "output")
-    button1=rpiScannable.rpiScannable(1, "input")
+    led1=rpiScannable.rpiScannable("LED1", 29, "output")
+    button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")
     
 
     #run user editable startup script 
