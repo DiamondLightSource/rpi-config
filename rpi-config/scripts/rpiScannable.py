@@ -5,7 +5,7 @@ from org.slf4j import LoggerFactory
 logger = LoggerFactory.getLogger(__name__ + '.py')
 
 class rpiScannable(ScannableBase):
-    def __init__(self, pin, ioState):
+    def __init__(self, name, pin, ioState):
         logger.debug("Init RPi Scannable at pin "+str(pin))
         self.pin = pin
         self.ioState = ioState
@@ -21,14 +21,17 @@ class rpiScannable(ScannableBase):
         return str(self.pin)+str(self.ioState)
 
     def getPosition(self):
+        logger.debug("IOSTATE"+str(self.ioState))
         if self.ioState == "input":
             self.currentPosition = "Not Set"
             rpiComms.commController.outgoingQueue.put(str(self.pin)+",g,i,None,0")
             while self.currentPosition == "Not Set":
                 pass
+            logger.debug("POSITION == "+self.currentPosition)
             return self.currentPosition
         else:
-            return None
+            logger.debug("OUTPUT PIN POS REQUESTED")
+            return "Outputs don't have a POS value"
 
     def asynchronousMoveTo(self,new_position, duration = 1):
         if (self.ioState == "input"):

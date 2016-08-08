@@ -85,14 +85,15 @@ class rpiCommunicator(Thread):
     def parse(self, returnString):
         logger.debug("ready to parse:"+returnString)
         scannableString = "scannable pins: "
-        for i in range(0, len(self.scannables)-1):
+        for i in range(0, len(self.scannables)):
                 scannableString += self.scannables[i].getIDString()
         logger.debug(scannableString)
         if returnString != "":
             returnComponents = returnString.split(",")
-            logger.debug(returnComponents)
-            pin = returnComponents[0]
+            logger.debug(str(returnComponents))
+            pin = int(returnComponents[0])
             success = returnComponents[1]
+            logger.debug("SUCCESS:"+success)
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in self.scannables:
