@@ -25,9 +25,9 @@
 		<!-- Limits the messages sent to log panels to the default messages shown. 
 			If you want to see DEBUG or TRACE messages in the log panel, set level to 
 			DEBUG or ALL -->
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+		<!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
-		</filter>
+		</filter> -->
 	</appender>
 
 	<!-- The root appender. By default we log all messages, but the server socket appender filters some out to avoid

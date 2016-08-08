@@ -105,5 +105,5 @@ def initaliseCommunicator():
     logger.info("StartingInit of Comm")
     commController = rpiCommunicator()
     commController.start()
-    logger.info("initailised")
+    logger.info("initialised")
 

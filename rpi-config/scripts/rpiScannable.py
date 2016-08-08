@@ -1,13 +1,18 @@
 from gda.device.scannable import ScannableBase
 import rpiComms
+from org.slf4j import LoggerFactory
+
+logger = LoggerFactory.getLogger(__name__ + '.py')
 
 class rpiScannable(ScannableBase):
     def __init__(self, pin, ioState):
+        logger.debug("Init RPi Scannable at pin "+str(pin))
         self.pin = pin
         self.ioState = ioState
         self.currentPosition = 0
         rpiComms.commController.scannables.append(self)
         rpiComms.commController.outgoingQueue.put(str(self.pin)+",n,"+self.ioState[0]+",None,0//")
+        logger.debug("Init of RPi Scannable Completed Successfuly")
 
     def isBusy(self):
         return False
