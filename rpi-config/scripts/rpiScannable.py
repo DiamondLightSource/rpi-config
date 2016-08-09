@@ -14,7 +14,7 @@ class rpiScannable(ScannableBase):
         self.pin = pin
         self.ioState = ioState
         self.currentPosition = 0
-        rpiComms.commController.scannables.append(self)
+        rpiComms.rpiCommunicator.scannables.append(self)
         rpiComms.commController.outgoingQueue.put(str(self.pin)+",n,"+self.ioState[0]+",None,0//")
         logger.debug("Init of RPi Scannable Completed Successfuly")
 

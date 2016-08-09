@@ -66,10 +66,10 @@ class socketSender(Thread):      #controls the response socket and sends all res
             
             
 class rpiCommunicator(Thread):
+    scannables = []
     def __init__(self):
         self.incomingQueue = Queue.Queue()
         self.outgoingQueue = Queue.Queue()
-        self.scannables = []
         self.outgoingSocket = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
         self.incomingSocket = connectToSocket("p45-pi-01.diamond.ac.uk", 50008)
         
@@ -85,8 +85,8 @@ class rpiCommunicator(Thread):
     def parse(self, returnString):
         logger.debug("ready to parse:"+returnString)
         scannableString = "scannable pins: "
-        for i in range(0, len(self.scannables)):
-                scannableString += self.scannables[i].getIDString()
+        for i in range(0, len(rpiCommunicator.scannables)):
+                scannableString += rpiCommunicator.scannables[i].getIDString()
         logger.debug(scannableString)
         if returnString != "":
             returnComponents = returnString.split(",")
@@ -96,7 +96,7 @@ class rpiCommunicator(Thread):
             logger.debug("SUCCESS:"+success)
             dat = returnComponents[2]
             message = returnComponents[3]
-            for i in self.scannables:
+            for i in rpiCommunicator.scannables:
                 if i.pin == pin:
                     if str(success) == True:
                         i.currentPosition = dat
