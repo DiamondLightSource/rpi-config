@@ -40,11 +40,16 @@ class rpiScannable(ScannableBase):
             logger.debug("OUTPUT PIN POS REQUESTED")
             return "Outputs don't have a POS value"
 
-    def asynchronousMoveTo(self,new_position, duration = 1):
+    def asynchronousMoveTo(self,new_position):
         if (self.ioState == "input"):
             pass    ##input pins can't be controlled
         elif (self.ioState == "output"):
             self.currentPosition = new_position
+            if (new_position%1) != 0:   #if new position is not an integer, splits out decimal component to act as duration
+                new_position = str(new_position)
+                new_position = new_position.split('.')
+                duration = int(new_position[1])
+                new_position = int(new_position[0])
             if new_position == 1:   #set high
                 rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,1,0")
             elif new_position == -1:  #toggle
