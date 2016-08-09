@@ -48,7 +48,13 @@ class rpiScannable(ScannableBase):
             if (new_position%1) != 0:   #if new position is not an integer, splits out decimal component to act as duration
                 new_position = str(new_position)
                 new_position = new_position.split('.')
-                duration = int(new_position[1])
+                numString = new_position[1]
+                for i in new_position[1]:
+                    if i == 0:
+                        numString = numString[1:]+"0"
+                    else:
+                        break
+                duration = int(numString)
                 new_position = int(new_position[0])
             if new_position == 1:   #set high
                 rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,1,0")
