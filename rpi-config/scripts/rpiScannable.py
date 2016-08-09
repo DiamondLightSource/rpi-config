@@ -50,7 +50,7 @@ class rpiScannable(ScannableBase):
                 new_position = new_position.split('.')
                 numString = new_position[1]
                 for i in new_position[1]:
-                    if i == 0:
+                    if i == "0":
                         numString = numString[1:]+"0"
                     else:
                         break
