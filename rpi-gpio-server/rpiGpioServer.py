@@ -2,6 +2,7 @@
 import rpiQueues as Queues
 import rpiGpioInterface as Interface
 import rpiGpioParser as Parser
+import rpiI2cInterface as i2cInterface
 import socket
 import sys
 from java.lang import Thread, InterruptedException
@@ -100,11 +101,13 @@ class socketResponder(Thread):      #controls the response socket and sends all 
                 
 Queues.init()
 gpio = Interface.Interface()
+i2c = i2cInterface.Interface()
+i2c.createDevice("Arduino-01", 0x04)
 listener = socketSetup(50007)
 output = socketSetup(50008)
 listenThread = socketListener(listener)
 listenThread.start()
-parserThread = parseController(gpio)
+parserThread = parseController(gpio, i2c)
 parserThread.start()
 responderThread = socketResponder(output)
 responderThread.start()

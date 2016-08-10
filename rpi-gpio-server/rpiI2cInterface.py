@@ -9,6 +9,9 @@ class Interface():
     def __init__(self):
         self.bus = I2CFactory.getInstance(I2CBus.BUS_1)
     
+    def parse(self,num, instr, pinType, pinState, duration):
+        pass
+    
     def createDevice(self, name, busAddress):
         device = self.bus.getDevice(busAddress)
         device.setName(name) 
@@ -25,5 +28,9 @@ class Interface():
             else:
                 pass
             
-
+    def read(self, deviceName):
+        """
+        Reads the entire buffer from target device
+        """
+        
            
