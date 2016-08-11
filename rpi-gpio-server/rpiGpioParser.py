@@ -34,7 +34,7 @@ class Parser(Thread):
                 xcode = -1      #data to return
                 returnMessage = temp
         elif (instr[0] == "i"):
-            xcode = i2c.parse(num, instr, pinType, pinState, duration)
+            xcode, returnMessage = i2c.parse(num, instr, pinType, pinState, duration)
         else:
             xcode = 5 #instruction Not recognised
         return xcode, returnMessage
