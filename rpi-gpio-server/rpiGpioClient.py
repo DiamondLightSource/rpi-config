@@ -70,12 +70,8 @@ responses = socketListener(response)
 instructions.start()
 responses.start()
 
-sendQueue.put("29,n,o,None,0//")
-sendQueue.put("29,s,o,PULSE,1000//")
-sendQueue.put("1,n,i,None,0//")
-try:
-    while True:
-        sendQueue.put("1,g,i,None,0//")
-        time.sleep(0.1)
-finally:        
-    s.close()
+while True:
+    sendQueue.put("9,iArduino-01,o,None,0//")
+    time.sleep(2.5)
+    
+    
