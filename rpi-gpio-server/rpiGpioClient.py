@@ -46,7 +46,7 @@ class socketSender(Thread):      #controls the response socket and sends all res
             self.socket.send(sendQueue.get())
             
 class socketListener(Thread):       #controls input socket, appends data to queue for processing
-    def __init__(self, socket):
+    def __init__(self, socket):","+str(instr)+
         self.socket = socket
         self.listen = True
         
@@ -70,8 +70,12 @@ responses = socketListener(response)
 instructions.start()
 responses.start()
 
+sendQueue.put("9,iarduino-01,o,CREATE,0//")
+
 while True:
-    sendQueue.put("9,iarduino-01,o,None,0//")
+    sendQueue.put("9,iarduino-01,o,HIGH,0//")
+    time.sleep(2.5)
+    sendQueue.put("9,iarduino-01,o,LOW,0//")
     time.sleep(2.5)
     
     

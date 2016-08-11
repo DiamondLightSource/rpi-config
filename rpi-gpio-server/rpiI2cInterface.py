@@ -21,9 +21,10 @@ class Interface():
             return 5
         message = self.createMessage(num, instr, pinType, pinState, duration)
         self.write(targetDevice, message)
+        return 0
                 
     def createMessage(self, num, instr, pinType, pinState, duration):
-        message = str(num)+","+str(instr)+","+str(pinType)+","+str(pinState)+","+str(duration)
+        message = str(num)+","+str(pinType)+","+str(pinState)+","+str(duration)
         return message
     
     def createDevice(self, name, busAddress):
@@ -32,9 +33,6 @@ class Interface():
         Interface.interfaceDevices.append([deviceName, device])
         
     def write(self, device, message):
-        """
-        Need to set up some sort of buffer to offload multibyte messages to the bus, might work with native bytearray type?
-        """
         device.write(message)
             
     def read(self, deviceName):
