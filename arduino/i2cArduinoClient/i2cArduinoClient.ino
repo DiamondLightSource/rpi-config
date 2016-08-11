@@ -2,8 +2,20 @@
 
 #define SLAVE_ADDRESS 0x04
 
+bool logging = true;
+
+void logger(char text[]){
+  if (logging == true){
+      Serial.print("LOG?");
+      Serial.println(text);
+  }
+}
 
 void setup() {
+  if (logging == true) {
+    Serial.begin(9600);
+    Serial.println("SERIAL CONNECTED");
+  }
   // initialize i2c as slave
   Wire.begin(SLAVE_ADDRESS);
 
@@ -19,13 +31,13 @@ void loop() {
 // callback for received data
 void receiveData(int byteCount){
   while(Wire.available()) {
-    Wire.read();
+    Serial.println(Wire.read());
   }
 }
 
 // callback for sending data
 void sendData(){
-  Wire.write();
+  //Wire.write();
 }
 
 void parseData(){
