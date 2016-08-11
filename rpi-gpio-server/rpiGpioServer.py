@@ -59,9 +59,10 @@ class socketListener(Thread):       #controls input socket, appends data to queu
             self.conn.close()
 
 class parseController(Thread):      #creates and controls parser threads
-    def __init__(self, interface):  #increasing and decreasing to meet demand
+    def __init__(self, interface, i2c):  #increasing and decreasing to meet demand
         self.parserList = []
         self.io = interface
+        self.i2c = i2c
         self.parse = True
         self.addParser()
     
@@ -75,7 +76,7 @@ class parseController(Thread):      #creates and controls parser threads
                 pass    
                                     
     def addParser(self):
-        p = Parser.Parser(self.io)
+        p = Parser.Parser(self.io, self.i2c)
         self.parserList.append(p)
         self.parserList[-1].start()
         
