@@ -12,8 +12,8 @@ class Interface():
     def parse(self,num, instr, pinType, pinState, duration):
         targetDevice = None
         for device in Interface.interfaceDevices:
-            if device.getName() == instr[1:]:
-                targetDevice = device             
+            if device[0] == instr[1:]:
+                targetDevice = device[1]             
                 break
             else:
                 pass
@@ -29,8 +29,8 @@ class Interface():
     
     def createDevice(self, name, busAddress):
         device = self.bus.getDevice(busAddress)
-        device.setName(name) 
-        Interface.interfaceDevices.append(device)
+        deviceName = name 
+        Interface.interfaceDevices.append([deviceName, device])
         
     def write(self, device, message):
         """
