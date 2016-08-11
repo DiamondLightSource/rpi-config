@@ -18,13 +18,12 @@ class Interface():
             else:
                 pass
         if not targetDevice:
-            return 5, None
+            return 5
         message = self.createMessage(num, instr, pinType, pinState, duration)
         self.write(targetDevice, message)
                 
     def createMessage(self, num, instr, pinType, pinState, duration):
         message = str(num)+","+str(instr)+","+str(pinType)+","+str(pinState)+","+str(duration)
-        message = bytearray(message)
         return message
     
     def createDevice(self, name, busAddress):

@@ -71,7 +71,7 @@ instructions.start()
 responses.start()
 
 while True:
-    sendQueue.put("9,iArduino-01,o,None,0//")
+    sendQueue.put("9,iarduino-01,o,None,0//")
     time.sleep(2.5)
     
     

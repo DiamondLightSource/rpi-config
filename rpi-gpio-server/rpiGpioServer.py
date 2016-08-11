@@ -103,7 +103,7 @@ class socketResponder(Thread):      #controls the response socket and sends all 
 Queues.init()
 gpio = Interface.Interface()
 i2c = i2cInterface.Interface()
-i2c.createDevice("Arduino-01", 0x04)
+i2c.createDevice("arduino-01", 04)
 listener = socketSetup(50007)
 output = socketSetup(50008)
 listenThread = socketListener(listener)
