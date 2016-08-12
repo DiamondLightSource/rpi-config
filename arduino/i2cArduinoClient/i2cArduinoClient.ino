@@ -59,6 +59,10 @@ void parseData(String command){
   foundString = command.substring(lastPos, command.length());
   val = atoi(foundString.c_str());
   
+  Serial.println(pin);
+  Serial.println(type);
+  Serial.println(state);
+  Serial.println(val);
   
   //Parses input buffer 
   /*
@@ -102,8 +106,11 @@ void setup() {
 
 void loop() {
   if (stringLock == false){
-    parseData(messageString);
-    //delay(250);
+    if (messageString != ""){
+      parseData(messageString);
+      messageString = "";
+    }
+    delay(250);
   } else {
     delay(250);
   }
