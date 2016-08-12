@@ -67,11 +67,11 @@ class socketSender(Thread):      #controls the response socket and sends all res
             
 class rpiCommunicator(Thread):
     scannables = []
-    def __init__(self):
+    def __init__(self, hostName):
         self.incomingQueue = Queue.Queue()
         self.outgoingQueue = Queue.Queue()
-        self.outgoingSocket = connectToSocket("p45-pi-01.diamond.ac.uk", 50007)
-        self.incomingSocket = connectToSocket("p45-pi-01.diamond.ac.uk", 50008)
+        self.outgoingSocket = connectToSocket(hostName, 50007)
+        self.incomingSocket = connectToSocket(hostName, 50008)
         
         self.outgoingThread = socketSender(self.outgoingSocket)
         self.incomingThread = socketListener(self.incomingSocket)
@@ -105,10 +105,10 @@ class rpiCommunicator(Thread):
                     logger.debug("Pin:"+str(pin)+", Message:"+message)
                     
 
-def initaliseCommunicator():
+def initaliseCommunicator(hostName):
     global commController
     logger.info("StartingInit of Comm")
-    commController = rpiCommunicator()
+    commController = rpiCommunicator(hostName)
     commController.start()
     logger.info("initialised")
 

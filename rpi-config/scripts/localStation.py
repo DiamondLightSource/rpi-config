@@ -50,7 +50,8 @@ try:
     inctime=showincrementaltimeClass('inctime')
     actualTime=actualTimeClass("actualTime")
     
-    rpiComms.initaliseCommunicator()
+    #RPiScannables     
+    rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")
     
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")

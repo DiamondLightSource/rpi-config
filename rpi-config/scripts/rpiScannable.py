@@ -57,12 +57,12 @@ class rpiScannable(ScannableBase):
                 duration = int(numString)
                 new_position = int(new_position[0])
             if new_position == 1:   #set high
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,1,0")
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,1,0//")
             elif new_position == -1:  #toggle
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,-1,0")
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,-1,0//")
             elif new_position == 2:  #pulse
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,2,"+str(duration))  
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,2,"+str(duration)+"//")  
             else:   #low
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,0,0")
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",s,o,0,0//")
 
 
