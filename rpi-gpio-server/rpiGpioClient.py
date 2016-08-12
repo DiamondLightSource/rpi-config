@@ -46,7 +46,7 @@ class socketSender(Thread):      #controls the response socket and sends all res
             self.socket.send(sendQueue.get())
             
 class socketListener(Thread):       #controls input socket, appends data to queue for processing
-    def __init__(self, socket):","+str(instr)+
+    def __init__(self, socket):
         self.socket = socket
         self.listen = True
         
