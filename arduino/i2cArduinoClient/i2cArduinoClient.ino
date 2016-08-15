@@ -1,12 +1,11 @@
 #include <Wire.h>
 
 #define SLAVE_ADDRESS 0x04
+#define MESSAGE_QUEUE_LENGTH 32
 
 const String pStateArray[5] = {"CREATE", "HIGH", "LOW", "SET", "GET"};
 
 bool logging = true;
-bool stringLock = false;
-String messageString = "";
 
 void logger(String a){
   if (logging == true){
@@ -18,14 +17,12 @@ void logger(String a){
 // callback for received data
 void receiveData(int byteCount){
   logger("Message Start");
-  messageString = "";
-  stringLock = true;
-  
+  String messageString = "";
   while(Wire.available()) {
     messageString += (char)Wire.read();
   }
-  stringLock = false;
   logger(messageString);
+  parseData(messageString);
   logger("Message end");
 }
 
@@ -43,7 +40,6 @@ void parseData(String command){
   char splitter = ',';
   String foundString = "";
   int lastPos = 0;
-  char logString[] = "";
   
   foundString = findString(lastPos, command, splitter);
   pin = atoi(foundString.c_str());
@@ -63,18 +59,65 @@ void parseData(String command){
   Serial.println(type);
   Serial.println(state);
   Serial.println(val);
+
+
+  if (type == 'i'){ //input
+    if (state == pStateArray[0]){ //CREATE
+      pinMode(pin, INPUT);
+    } else if (state ==  pStateArray[4]){ //GET
+      int returnVal = digitalRead(pin);
+      logger("returnVal");
+      char buf[4];
+      logger(itoa(returnVal, buf, 10));
+    } else {
+      logger("Input Pin Doesn't support that action");
+    }
+  } else if (type == 'o'){  //output (digital)
+    if (state == pStateArray[0]){ //CREATE
+      pinMode(pin, OUTPUT);
+    } else if (state == pStateArray[1]){  //HIGH
+      digitalWrite(pin, HIGH);
+    } else if (state == pStateArray[2]){ //LOW
+      digitalWrite(pin, LOW);
+    } else {
+      logger("Ouput Pin Doesn't support that action");
+    }
+  } else if (type == 'p'){  //output (pwm)
+    if (state == pStateArray[3]){ //SET
+      if (val >= 0   && val <= 255){
+        analogWrite(pin, val);
+      } else {
+        logger("PWM values must be between 0 and 255");
+      }
+    } else {
+      logger("PWM Pin Doesn't support that action");
+    }
+  } else if (type == 'u'){ //input (internal pullup resistors)
+    if (state == pStateArray[0]){ //CREATE
+      pinMode(pin, INPUT_PULLUP);
+    } else if (state == pStateArray[4]){ //GET
+      int returnVal = digitalRead(pin);
+      logger("returnVal");
+      char buf[4];
+      logger(itoa(returnVal, buf, 10));
+    } else {
+      logger("Input Pin (internal Pullup) Doesn't support that action");
+    }
+  } else if (type == 'a'){ //analogInput
+    if (state == pStateArray[4]){ //GET
+      int returnVal;
+      returnVal = analogRead(pin);
+      logger("returnVal");
+      char buf[4];
+      logger(itoa(returnVal, buf, 10));
+    } else {
+      logger("Analog Input Pin Doesn't support that action");
+    }
+  } else {
+    logger("Pin type not recognised");
+  }
   
-  //Parses input buffer 
-  /*
-   * Needs the following command options:
-   * pinMode
-   * analogReference
-   * digitalWrite
-   * digitalRead
-   * analogRead
-   * analogWrite (this is what pwm is called)
-   * 
-   * Will also need a control framework;
+  /* Will also need a control framework;
    * e.g. prior to a data request, a command will be recieved to take a reading or whatever, that data should be queued to a buffer 
    * in anticipation of a read request to offload everything.
    */
@@ -105,14 +148,6 @@ void setup() {
 }
 
 void loop() {
-  if (stringLock == false){
-    if (messageString != ""){
-      parseData(messageString);
-      messageString = "";
-    }
-    delay(250);
-  } else {
-    delay(250);
-  }
+  
 }
 
