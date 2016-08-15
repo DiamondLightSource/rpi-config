@@ -7,6 +7,8 @@ const String pStateArray[5] = {"CREATE", "HIGH", "LOW", "SET", "GET"};
 
 bool logging = true;
 
+String outgoingData = "";
+
 void logger(String a){
   if (logging == true){
       Serial.print("LOG MESSAGE:");
@@ -28,7 +30,8 @@ void receiveData(int byteCount){
 
 // callback for sending data
 void sendData(){
-  //Wire.write();
+  Wire.write(outgoingData.c_str());
+  outgoingData = "";
 }
 
 void parseData(String command){
@@ -69,6 +72,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
+      char pbuf[2];
+      itoa(pin, pbuf, 10);
+      outgoingData = outgoingData + pbuf + ',' + buf + "//";
     } else {
       logger("Input Pin Doesn't support that action");
     }
