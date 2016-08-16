@@ -70,12 +70,14 @@ responses = socketListener(response)
 instructions.start()
 responses.start()
 
-sendQueue.put("9,iarduino-01,o,CREATE,0//")
+sendQueue.put("13,iarduino-01,o,CREATE,0//")
+sendQueue.put("12,iarduino-01,i,CREATE,0//")
 
 while True:
-    sendQueue.put("9,iarduino-01,o,HIGH,0//")
+    sendQueue.put("13,iarduino-01,o,GET,0//")
+    sendQueue.put("13,iarduino-01,o,HIGH,0//")
     time.sleep(2.5)
-    sendQueue.put("9,iarduino-01,o,LOW,0//")
+    sendQueue.put("13,iarduino-01,o,LOW,0//")
     time.sleep(2.5)
     
     

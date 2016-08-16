@@ -19,11 +19,13 @@ class Interface():
                 pass
         if not targetDevice:
             return 5
-        message = self.createMessage(num, instr, pinType, pinState, duration)
+        message = self.createMessage(num, pinType, pinState, duration)
         self.write(targetDevice, message)
+        if pinState == "GET":
+            self.read(targetDevice)            
         return 0
                 
-    def createMessage(self, num, instr, pinType, pinState, duration):
+    def createMessage(self, num, pinType, pinState, duration):
         message = str(num)+","+str(pinType)+","+str(pinState)+","+str(duration)
         return message
     
@@ -35,7 +37,10 @@ class Interface():
     def write(self, device, message):
         device.write(message)
             
-    def read(self, deviceName):
+    def read(self, device):
+        device.read(a, 0, 512)
+        print a
+        
         """
         Reads the entire buffer from target device
         """
