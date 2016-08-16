@@ -31,6 +31,7 @@ void receiveData(int byteCount){
 // callback for sending data
 void sendData(){
   Wire.write(outgoingData.c_str());
+  logger(outgoingData);
   outgoingData = "";
 }
 
@@ -57,13 +58,16 @@ void parseData(String command){
   }
   foundString = command.substring(lastPos, command.length());
   val = atoi(foundString.c_str());
-  
-  Serial.println(pin);
-  Serial.println(type);
-  Serial.println(state);
-  Serial.println(val);
 
+  if (logging == true) {
+    Serial.println(pin);
+    Serial.println(type);
+    Serial.println(state);
+    Serial.println(val);
+  }
 
+  char pbuf[2];
+  itoa(pin, pbuf, 10);
   if (type == 'i'){ //input
     if (state == pStateArray[0]){ //CREATE
       pinMode(pin, INPUT);
@@ -72,10 +76,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      char pbuf[2];
-      itoa(pin, pbuf, 10);
       outgoingData = outgoingData + pbuf + ',' + buf + "//";
     } else {
+      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
       logger("Input Pin Doesn't support that action");
     }
   } else if (type == 'o'){  //output (digital)
@@ -86,16 +89,19 @@ void parseData(String command){
     } else if (state == pStateArray[2]){ //LOW
       digitalWrite(pin, LOW);
     } else {
+      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
       logger("Ouput Pin Doesn't support that action");
     }
   } else if (type == 'p'){  //output (pwm)
     if (state == pStateArray[3]){ //SET
-      if (val >= 0   && val <= 255){
+      if (val >= 0 && val <= 255){
         analogWrite(pin, val);
       } else {
+        outgoingData = outgoingData + "Value Error on pin:" + pbuf + "//";
         logger("PWM values must be between 0 and 255");
       }
     } else {
+      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
       logger("PWM Pin Doesn't support that action");
     }
   } else if (type == 'u'){ //input (internal pullup resistors)
@@ -106,7 +112,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
+      outgoingData = outgoingData + pbuf + ',' + buf + "//";
     } else {
+      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
       logger("Input Pin (internal Pullup) Doesn't support that action");
     }
   } else if (type == 'a'){ //analogInput
@@ -116,17 +124,15 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
+      outgoingData = outgoingData + pbuf + ',' + buf + "//";
     } else {
+      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
       logger("Analog Input Pin Doesn't support that action");
     }
   } else {
+    outgoingData = outgoingData + "Pin Type Error on pin:" + pbuf + "//";
     logger("Pin type not recognised");
   }
-  
-  /* Will also need a control framework;
-   * e.g. prior to a data request, a command will be recieved to take a reading or whatever, that data should be queued to a buffer 
-   * in anticipation of a read request to offload everything.
-   */
 }
 
 String findString(int& lastPos, String searchString, char tar){
