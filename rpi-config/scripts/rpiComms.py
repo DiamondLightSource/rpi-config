@@ -93,7 +93,7 @@ class rpiCommunicator(Thread):
             logger.debug(str(returnComponents))
             pin = int(returnComponents[0])
             success = bool(returnComponents[1])
-            logger.debug("SUCCESS:"+success)
+            logger.debug("SUCCESS:"+str(success))
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in rpiCommunicator.scannables:
