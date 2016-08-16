@@ -5,7 +5,7 @@
 
 const String pStateArray[5] = {"CREATE", "HIGH", "LOW", "SET", "GET"};
 
-bool logging = true;
+bool logging = false;
 
 String outgoingData = "";
 
