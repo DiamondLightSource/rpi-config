@@ -88,7 +88,7 @@ class rpiCommunicator(Thread):
         for i in range(0, len(rpiCommunicator.scannables)):
                 scannableString += rpiCommunicator.scannables[i].getIDString()
         logger.debug(scannableString)
-        if returnString != "":
+        if returnString != "":          ##ThiS WONT WORK ANY MORE DUE TO CHAGING STRUCTURE
             returnComponents = returnString.split(",")
             logger.debug(str(returnComponents))
             pin = int(returnComponents[0])
@@ -97,6 +97,7 @@ class rpiCommunicator(Thread):
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in rpiCommunicator.scannables:
+                
                 if i.pin == pin:
                     if success == True:
                         logger.debug("dat: "+ str(dat)+"NAME: "+str(i.getName()))

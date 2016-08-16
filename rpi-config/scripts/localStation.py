@@ -8,6 +8,7 @@ from gda.jython import InterfaceProvider
 from gda.device.scannable import ScannableBase
 import rpiComms
 import rpiScannable
+import arduinoScannable
 from rpiComms import initaliseCommunicator
 
         
@@ -55,6 +56,8 @@ try:
     
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")
+    
+    UNOled1 = arduinoScannable.arduinoScannable("UNOLED1", 13, "arduino-01","o")
     
 
     #run user editable startup script 

@@ -47,7 +47,7 @@ class socketListener(Thread):       #controls input socket, appends data to queu
     def run(self):
         while self.listen:
             self.conn, self.addr = self.socket.accept() 
-            print ("Connected by", self.addr) 
+            print ("Connected by", self.addr)
             while self.listen:
                 data = self.conn.recv(1024) 
                 if not data: 
@@ -67,6 +67,7 @@ class parseController(Thread):      #creates and controls parser threads
         self.addParser()
     
     def run(self):
+        self.addParser()
         while self.parse:
             if Queues.commandQueue.qsize() > 10:
                 self.addParser()
