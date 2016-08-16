@@ -4,6 +4,7 @@ import com.pi4j.io.i2c.I2CBus as I2CBus
 import com.pi4j.io.i2c.I2CDevice as I2CDevice
 import com.pi4j.io.i2c.I2CFactory as I2CFactory
 import time
+import array
 
 class Interface():
     interfaceDevices = []
@@ -23,8 +24,7 @@ class Interface():
         message = self.createMessage(num, pinType, pinState, duration)
         self.write(targetDevice, message)
         if pinState == "GET":
-            print "GET CALLED"
-            time.sleep(5)
+            time.sleep(2.5)
             self.read(targetDevice)            
         return 0
                 
@@ -41,11 +41,7 @@ class Interface():
         device.write(message)
             
     def read(self, device):
-        device.read(a, 0, 512)
-        print a
-        
-        """
-        Reads the entire buffer from target device
-        """
-        
+        readBuffer = array.array('b', '.' * 32)
+        device.read(readBuffer, 0, 512)
+        return readBuffer
            

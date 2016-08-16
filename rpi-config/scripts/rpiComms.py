@@ -92,13 +92,14 @@ class rpiCommunicator(Thread):
             returnComponents = returnString.split(",")
             logger.debug(str(returnComponents))
             pin = int(returnComponents[0])
-            success = returnComponents[1]
+            success = bool(returnComponents[1])
             logger.debug("SUCCESS:"+success)
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in rpiCommunicator.scannables:
                 if i.pin == pin:
-                    if str(success) == True:
+                    if success == True:
+                        logger.debug("dat: "+ str(dat)+"NAME: "+str(i.getName()))
                         i.currentPosition = dat
                     else:
                         i.currentPosition = 0

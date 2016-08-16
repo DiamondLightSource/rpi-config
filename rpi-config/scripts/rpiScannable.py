@@ -21,9 +21,6 @@ class rpiScannable(ScannableBase):
     def isBusy(self):
         return False
 
-    def getIDString(self):
-        return str(self.pin)+str(self.ioState)
-
     def getFormattedPosition(self):
         return self.getPosition()
 
