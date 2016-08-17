@@ -33,7 +33,7 @@ class arduinoScannable(ScannableBase):
         #logger.debug("IOSTATE"+str(self.ioState))
         if self.ioState == "i" or self.ioState == "a" or self.ioState == "u": 
             self.currentPosition = "Not Set"
-            rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState",GET,0//")
+            rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",GET,0//")
             while self.currentPosition == "Not Set":
                 pass
             #logger.debug("POSITION == "+str(self.currentPosition))
@@ -45,6 +45,6 @@ class arduinoScannable(ScannableBase):
     def asynchronousMoveTo(self,new_position):
         if (self.ioState == "o"):
             if new_position == 1:   #set high
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState",HIGH,0//") 
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",HIGH,0//") 
             else:   #low
-                rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState",LOW,0//")
+                rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",LOW,0//")

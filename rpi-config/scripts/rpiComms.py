@@ -84,11 +84,11 @@ class rpiCommunicator(Thread):
             
     def parse(self, returnString):
         logger.debug("ready to parse:"+returnString)
-        scannableString = "scannable pins: "
-        for i in range(0, len(rpiCommunicator.scannables)):
-                scannableString += rpiCommunicator.scannables[i].getIDString()
-        logger.debug(scannableString)
-        if returnString != "":          ##ThiS WONT WORK ANY MORE DUE TO CHAGING STRUCTURE
+#        scannableString = "scannable pins: "
+#        for i in range(0, len(rpiCommunicator.scannables)):
+#                scannableString += rpiCommunicator.scannables[i].getIDString()
+#        logger.debug(scannableString)
+        if returnString != "":         
             returnComponents = returnString.split(",")
             logger.debug(str(returnComponents))
             pin = int(returnComponents[0])
@@ -97,15 +97,15 @@ class rpiCommunicator(Thread):
             dat = returnComponents[2]
             message = returnComponents[3]
             for i in rpiCommunicator.scannables:
-                
-                if i.pin == pin:
-                    if success == True:
-                        logger.debug("dat: "+ str(dat)+"NAME: "+str(i.getName()))
-                        i.currentPosition = dat
-                    else:
-                        i.currentPosition = 0
-                    logger.debug("Pin:"+str(pin)+", Message:"+message)
-                    
+                ##check message for arduino device id
+                    if i.pin == pin:
+                        if success == True:
+                            logger.debug("dat: "+ str(dat)+"NAME: "+str(i.getName()))
+                            i.currentPosition = dat
+                        else:
+                            i.currentPosition = 0
+                        logger.debug("Pin:"+str(pin)+", Message:"+message)
+                        
 
 def initaliseCommunicator(hostName):
     global commController

@@ -36,15 +36,24 @@ class Parser(Thread):
         elif (instr[0] == "i"):
             xcode = self.i2c.parse(num, instr, pinType, pinState, duration)
             if (xcode != 5 and xcode != 0):
-                returnMessage = xcode
-                xcode = -1
+                returnMessage = ""
+                returnMessageElements = xcode.split("//")
+                for i in returnMessageElements:
+                    if len(i) > 3:
+                        i = i + "["+instr[1:]+"]" 
+                        returnMessage = returnMessage + i + "//"
+                    else:
+                        break
+                xcode = -2
         else:
             xcode = 5 #instruction Not recognised
         return xcode, returnMessage
         
         
     def returnCodes(self, num, xcode, returnMessage):
-        if (xcode == -1):
+        if (xcode == -2):
+            returnMessage = returnMessage
+        elif (xcode == -1):
             returnMessage = str(num)+",True,"+str(returnMessage)+",The operation completed successfully//"
         elif (xcode == 0):
             returnMessage = str(num)+",True,None,The operation completed successfully//"
