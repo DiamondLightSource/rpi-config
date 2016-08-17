@@ -97,10 +97,12 @@ class rpiCommunicator(Thread):
             dat = returnComponents[2]
             message = returnComponents[3]
             device = ""
+            logger.debug("MESSAGE:"+message)
             if "[" in message:
                 messageSections = message.split("[")
                 message = messageSections[0]
                 device = messageSections[1][:-1]
+                logger.debug("Meesage:"+message+"Device:"+device)
             
             for i in rpiCommunicator.scannables:
                 if device == i.device and i.pin == pin:
