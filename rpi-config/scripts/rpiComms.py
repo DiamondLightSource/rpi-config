@@ -96,16 +96,21 @@ class rpiCommunicator(Thread):
             logger.debug("SUCCESS:"+str(success))
             dat = returnComponents[2]
             message = returnComponents[3]
+            device = ""
+            if "[" in message:
+                messageSections = message.split("[")
+                message = messageSections[0]
+                device = messageSections[1][:-1]
+            
             for i in rpiCommunicator.scannables:
-                ##check message for arduino device id
-                    if i.pin == pin:
+                if device == i.device and i.pin == pin:
                         if success == True:
                             logger.debug("dat: "+ str(dat)+"NAME: "+str(i.getName()))
                             i.currentPosition = dat
                         else:
                             i.currentPosition = 0
                         logger.debug("Pin:"+str(pin)+", Message:"+message)
-                        
+                    
 
 def initaliseCommunicator(hostName):
     global commController

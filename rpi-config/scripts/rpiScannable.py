@@ -13,6 +13,7 @@ class rpiScannable(ScannableBase):
         self.setOutputFormat(["%s"])    # required
         self.pin = pin
         self.ioState = ioState
+        self.device = ""
         self.currentPosition = 0
         rpiComms.rpiCommunicator.scannables.append(self)
         rpiComms.commController.outgoingQueue.put(str(self.pin)+",n,"+self.ioState[0]+",None,0//")
