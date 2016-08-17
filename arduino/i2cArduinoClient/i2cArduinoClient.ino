@@ -76,9 +76,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      outgoingData = outgoingData + pbuf + ',' + buf + "//";
+      outgoingData = outgoingData + pbuf + ",True"+ buf + ", Value Read Successfully//";
     } else {
-      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
+      outgoingData = outgoingData +pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
       logger("Input Pin Doesn't support that action");
     }
   } else if (type == 'o'){  //output (digital)
@@ -89,7 +89,7 @@ void parseData(String command){
     } else if (state == pStateArray[2]){ //LOW
       digitalWrite(pin, LOW);
     } else {
-      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
+      outgoingData = outgoingData  + pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
       logger("Ouput Pin Doesn't support that action");
     }
   } else if (type == 'p'){  //output (pwm)
@@ -97,12 +97,13 @@ void parseData(String command){
       if (val >= 0 && val <= 255){
         analogWrite(pin, val);
       } else {
-        outgoingData = outgoingData + "Value Error on pin:" + pbuf + "//";
+        outgoingData = outgoingData  + pbuf + ",False,None,Value Error on pin:" + pbuf + "//";
         logger("PWM values must be between 0 and 255");
       }
     } else {
-      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
-      logger("PWM Pin Doesn't support that action");
+      outgoingData = outgoingData  +pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
+      logger("PWM Pin Doesn'tsupport that action");
+ 
     }
   } else if (type == 'u'){ //input (internal pullup resistors)
     if (state == pStateArray[0]){ //CREATE
@@ -112,9 +113,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      outgoingData = outgoingData + pbuf + ',' + buf + "//";
+      outgoingData = outgoingData + pbuf + ",True," + buf + ",Value Read successfully//";
     } else {
-      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
+      outgoingData = outgoingData  + pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
       logger("Input Pin (internal Pullup) Doesn't support that action");
     }
   } else if (type == 'a'){ //analogInput
@@ -124,13 +125,13 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      outgoingData = outgoingData + pbuf + ',' + buf + "//";
+      outgoingData = outgoingData + pbuf + ",True," + buf + ",Value Read Successfully//";
     } else {
-      outgoingData = outgoingData + "Action Error on pin:" + pbuf + "//";
+      outgoingData = outgoingData  + pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
       logger("Analog Input Pin Doesn't support that action");
     }
   } else {
-    outgoingData = outgoingData + "Pin Type Error on pin:" + pbuf + "//";
+    outgoingData = outgoingData + pbuf + ",False,None,Pin Type Error on pin:" + pbuf + "//";
     logger("Pin type not recognised");
   }
 }
