@@ -59,6 +59,7 @@ try:
     
     UNOled1 = arduinoScannable.arduinoScannable("UNOLED1", 13, "arduino-01","o")
     UNObutton1 = arduinoScannable.arduinoScannable("UNOBUTTON1", 12, "arduino-01", "i")
+    UNOanalog1 = arduinoScannable.arduinoScannable("UNOANALOG1", 2, "arduino-01", "a")
     
 
     #run user editable startup script 
