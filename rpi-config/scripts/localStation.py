@@ -62,9 +62,9 @@ try:
     UNOanalog1 = arduinoScannable.arduinoScannable("UNObutton1", 2, "arduino-01", "a")
     
     UNOmotor1a = arduinoScannable.arduinoScannable("UNOmotor1a", 8, "arduino-01", "o")
-    UNOmotor1b = arduinoScannable.arduinoScannable("UNOmotor1b", 8, "arduino-01", "o")
-    UNOmotor1c = arduinoScannable.arduinoScannable("UNOmotor1c", 8, "arduino-01", "o")
-    UNOmotor1d = arduinoScannable.arduinoScannable("UNOmotor1d", 8, "arduino-01", "o")
+    UNOmotor1b = arduinoScannable.arduinoScannable("UNOmotor1b", 9, "arduino-01", "o")
+    UNOmotor1c = arduinoScannable.arduinoScannable("UNOmotor1c", 10, "arduino-01", "o")
+    UNOmotor1d = arduinoScannable.arduinoScannable("UNOmotor1d", 11, "arduino-01", "o")
 
     #run user editable startup script 
     if isLive():
