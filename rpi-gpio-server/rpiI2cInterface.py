@@ -44,9 +44,11 @@ class Interface():
     def read(self, device):
         readBuffer = array.array('b', '_' * 512)
         device.read(readBuffer, 0, 512)
+        print readBuffer
         readString = ""
         for i in readBuffer:
-            if i == 95:
+            print "i = " + str(i)
+            if i == -1:
                 break
             readString = readString + chr(i)
         return readString
