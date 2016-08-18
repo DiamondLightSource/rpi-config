@@ -55,4 +55,4 @@ class arduinoScannable(ScannableBase):
             else:   #low
                 rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",LOW,0//")
         elif (self.ioState == "p"):
-            rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",SET,"+new_position+"//")
+            rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",SET,"+str(new_position)+"//")
