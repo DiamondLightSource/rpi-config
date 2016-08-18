@@ -24,7 +24,7 @@ class Interface():
         message = self.createMessage(num, pinType, pinState, duration)
         self.write(targetDevice, message)
         if pinState == "GET":
-            time.sleep(0.1)
+            time.sleep(0.25)
             data = self.read(targetDevice)            
             return data
         return 0

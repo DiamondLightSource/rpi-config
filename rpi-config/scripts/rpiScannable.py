@@ -35,10 +35,10 @@ class rpiScannable(ScannableBase):
             self.currentPosition = "Not Set"
             rpiComms.commController.outgoingQueue.put(str(self.pin)+",g,i,None,0")
             for a in range(0,15):
-                if a%2 == 0:    
+                if a%5 == 0:    
                     logger.debug("POS CHECK:"+str(a))
                 if self.currentPosition == "Not Set":
-                    time.sleep(0.1)
+                    time.sleep(0.2)
                 else:
                     break
             logger.debug("POSITION == "+str(self.currentPosition))
