@@ -1,6 +1,7 @@
 from gda.device.scannable import ScannableBase
 import rpiComms
 from org.slf4j import LoggerFactory
+import time
 
 logger = LoggerFactory.getLogger(__name__ + '.py')
 
@@ -34,11 +35,11 @@ class arduinoScannable(ScannableBase):
         if self.ioState == "i" or self.ioState == "a" or self.ioState == "u": 
             self.currentPosition = "Not Set"
             rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",GET,0//")
-            for a in range(0,512):
+            for a in range(0,15):
                 if a%32 == 0:    
                     logger.debug("POS CHECK:"+str(a))
                 if self.currentPosition == "Not Set":
-                    pass
+                    time.sleep(1)
                 else:
                     break
             #logger.debug("POSITION == "+str(self.currentPosition))
