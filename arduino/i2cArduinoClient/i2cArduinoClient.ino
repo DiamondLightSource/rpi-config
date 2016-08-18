@@ -4,14 +4,16 @@
 #define MESSAGE_QUEUE_LENGTH 32
 
 const String pStateArray[5] = {"CREATE", "HIGH", "LOW", "SET", "GET"};
+const unsigned long timeDev = 60000;
 
-bool logging = false;
+bool logging = true;
 
 String outgoingData = "";
 
 void logger(String a){
   if (logging == true){
-      Serial.print("LOG MESSAGE:");
+      String timeString = (String)(millis()/timeDev);
+      Serial.print(timeString+" LOG: ");
       Serial.println(a);
   }
 }
@@ -30,8 +32,8 @@ void receiveData(int byteCount){
 
 // callback for sending data
 void sendData(){
+  logger("Data RETURN: "+outgoingData);
   Wire.write(outgoingData.c_str());
-  logger(outgoingData);
   outgoingData = "";
 }
 
@@ -76,9 +78,9 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      outgoingData = outgoingData + pbuf + ",True"+ buf + ", Value Read Successfully//";
+      outgoingData = outgoingData + pbuf + ",True,"+ buf + ", Value Read Successfully//";
     } else {
-      outgoingData = outgoingData +pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
+      outgoingData = outgoingData + pbuf + ",False,None,Action Error on pin:" + pbuf + "//";
       logger("Input Pin Doesn't support that action");
     }
   } else if (type == 'o'){  //output (digital)
