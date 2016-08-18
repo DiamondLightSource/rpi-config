@@ -39,7 +39,7 @@ class arduinoScannable(ScannableBase):
                 if a%2 == 0:    
                     logger.debug("POS CHECK:"+str(a))
                 if self.currentPosition == "Not Set":
-                    time.sleep(1)
+                    time.sleep(0.1)
                 else:
                     break
             #logger.debug("POSITION == "+str(self.currentPosition))

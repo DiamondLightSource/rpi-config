@@ -24,7 +24,7 @@ class Interface():
         message = self.createMessage(num, pinType, pinState, duration)
         self.write(targetDevice, message)
         if pinState == "GET":
-            time.sleep(12)
+            time.sleep(0.1)
             data = self.read(targetDevice)            
             return data
         return 0
@@ -42,13 +42,14 @@ class Interface():
         device.write(message)
             
     def read(self, device):
-        readBuffer = array.array('b', '.' * 512)
-        device.read(readBuffer, 0, 512)
+        readBuffer = array.array('b', '.' * 32)
+        device.read(readBuffer, 0, 32)
         print readBuffer
         readString = ""
         for i in readBuffer:
-            print "i = " + str(i)
             if i == -1:
                 break
+            else:
+                print chr(i) 
             readString = readString + chr(i)
         return readString
