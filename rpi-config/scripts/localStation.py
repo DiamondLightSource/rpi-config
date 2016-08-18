@@ -58,6 +58,7 @@ try:
     button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")
     
     UNOled1 = arduinoScannable.arduinoScannable("UNOLED1", 13, "arduino-01","o")
+    UNObutton1 = arduinoScannable.arduinoScannable("UNOBUTTON1", 12, "arduino-01", "i")
     
 
     #run user editable startup script 
