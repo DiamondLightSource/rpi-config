@@ -10,6 +10,7 @@ import rpiComms
 import rpiScannable
 import arduinoScannable
 from rpiComms import initaliseCommunicator
+import arduinoMotor
 
         
 def isLive():
@@ -65,6 +66,7 @@ try:
     UNOmotor1b = arduinoScannable.arduinoScannable("UNOmotor1b", 9, "arduino-01", "o")
     UNOmotor1c = arduinoScannable.arduinoScannable("UNOmotor1c", 10, "arduino-01", "o")
     UNOmotor1d = arduinoScannable.arduinoScannable("UNOmotor1d", 11, "arduino-01", "o")
+    UNOmotor1 = arduinoMotor.arduinoMotor("UNOmotor1", UNOmotor1a, UNOmotor1b, UNOmotor1c, UNOmotor1d)
 
     #run user editable startup script 
     if isLive():
