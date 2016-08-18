@@ -1,9 +1,3 @@
-from localStation import UNOmotor1a
-from localStation import UNOmotor1b
-from localStation import UNOmotor1c
-from localStation import UNOmotor1d
-
-
 for i in range(50):
     pos UNOmotor1a 1
     pos UNOmotor1b 1
