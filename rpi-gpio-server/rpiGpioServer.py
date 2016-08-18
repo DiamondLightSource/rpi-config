@@ -58,32 +58,32 @@ class socketListener(Thread):       #controls input socket, appends data to queu
             
             self.conn.close()
 
-class parseController(Thread):      #creates and controls parser threads
-    def __init__(self, interface, i2c):  #increasing and decreasing to meet demand
-        self.parserList = []
-        self.io = interface
-        self.i2c = i2c
-        self.parse = True
-        self.addParser()
-    
-    def run(self):
-        self.addParser()
-        while self.parse:
-            if Queues.commandQueue.qsize() > 10:
-                self.addParser()
-            elif Queues.commandQueue.qsize() < 2 and len(self.parserList) > 1:
-                self.removeParser()
-            else:
-                pass    
-                                    
-    def addParser(self):
-        p = Parser.Parser(self.io, self.i2c)
-        self.parserList.append(p)
-        self.parserList[-1].start()
-        
-    def removeParser(self):
-        self.parserList[-1].parseQueue = False
-        del self.parserList[-1]
+#class parseController(Thread):      #creates and controls parser threads
+#    def __init__(self, interface, i2c):  #increasing and decreasing to meet demand
+#        self.parserList = []
+#        self.io = interface
+#        self.i2c = i2c
+#        self.parse = True
+#        #self.addParser()
+#    
+#    def run(self):
+#        self.addParser()
+#        while self.parse:
+#            if Queues.commandQueue.qsize() > 10:
+#                self.addParser()
+#            elif Queues.commandQueue.qsize() < 2 and len(self.parserList) > 1:
+#                self.removeParser()
+#            else:
+#                pass    
+#                                    
+#    def addParser(self):
+#        p = Parser.Parser(self.io, self.i2c)
+#        self.parserList.append(p)
+#        self.parserList[-1].start()
+#        
+#    def removeParser(self):
+#        self.parserList[-1].parseQueue = False
+#        del self.parserList[-1]
         
 class socketResponder(Thread):      #controls the response socket and sends all response messages from commands
     def __init__(self, socket):
@@ -109,7 +109,9 @@ listener = socketSetup(50007)
 output = socketSetup(50008)
 listenThread = socketListener(listener)
 listenThread.start()
-parserThread = parseController(gpio, i2c)
-parserThread.start()
+#parserThread = parseController(gpio, i2c)
+#parserThread.start()
+mainParser = Parser.Parser(gpio, i2c)
+mainParser.start()
 responderThread = socketResponder(output)
 responderThread.start()
