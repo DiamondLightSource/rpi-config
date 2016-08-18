@@ -2,7 +2,7 @@ from gda.device.scannable import ScannableBase
 import rpiComms
 from org.slf4j import LoggerFactory
 
-#logger = LoggerFactory.getLogger(__name__ + '.py')
+logger = LoggerFactory.getLogger(__name__ + '.py')
 
 class arduinoScannable(ScannableBase):
     def __init__(self, name, pin, device, ioState):
