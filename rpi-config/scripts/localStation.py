@@ -57,7 +57,7 @@ try:
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")
     
-    UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 6, "arduino-01","p")
+    UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")
     UNObutton1 = arduinoScannable.arduinoScannable("UNObutton1", 12, "arduino-01", "i")
     UNOanalog1 = arduinoScannable.arduinoScannable("UNObutton1", 2, "arduino-01", "a")
 
