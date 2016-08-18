@@ -36,7 +36,7 @@ class arduinoScannable(ScannableBase):
             self.currentPosition = "Not Set"
             rpiComms.commController.outgoingQueue.put(str(self.pin)+",i"+self.device+","+self.ioState+",GET,0//")
             for a in range(0,15):
-                if a%32 == 0:    
+                if a%2 == 0:    
                     logger.debug("POS CHECK:"+str(a))
                 if self.currentPosition == "Not Set":
                     time.sleep(1)
