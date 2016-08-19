@@ -5,9 +5,9 @@ class arduinoMotor(PseudoDevice):
     
     def __init__(self,name, motorPin1, motorPin2, motorPin3, motorPin4):
         self.setName(name)                                         # required
-        self.setInputNames([])                       # required
-        self.setExtraNames([motorPin1.getName(), motorPin2.getName(), motorPin3.getName(), motorPin4.getName()])      # required
-        self.setOutputFormat(["%s","%s","%s","%s"])    # required
+        self.setInputNames(["Position"])                       # required
+        self.setExtraNames([])      # required
+        self.setOutputFormat(["%s"])    # required
         self.motorPin1 = motorPin1
         self.motorPin2 = motorPin2
         self.motorPin3 = motorPin3
@@ -15,7 +15,7 @@ class arduinoMotor(PseudoDevice):
         self.currentPhase = 0
         
     def getPosition(self):
-        return [self.motorPin1(),self.motorPin2(),self.motorPin3(),self.motorPin4()]
+        return self.currentPhase
     
     def asynchronousMoveTo(self,newPosition):
         targetPhase = self.currentPhase + newPosition
