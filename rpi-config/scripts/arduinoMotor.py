@@ -61,8 +61,8 @@ class arduinoMotor(PseudoDevice):
             else:
                 pass
             
-            if (abs(self.currentPhase)%50 == 0):
-                time.sleep(0.2)
+            if (abs(self.currentPhase)%20 == 0):
+                time.sleep(0.1)
         self.busyTest = False
         
     def isBusy(self):
