@@ -42,13 +42,15 @@ class Interface():
     def write(self, device, message):
         counter = 0
         success = False
-        while (counter < 10 and success = False):
+        while (counter < 10 and success == False):
             try:
                 device[1].write(message)
                 success = True
             except IOException:
                 try:
                     device[1] = self.bus.getDevice(device[2])
+                except:
+                    print "Reconnect Failed"
                 counter += 1 
             
     def read(self, device):
