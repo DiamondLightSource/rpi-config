@@ -59,5 +59,5 @@ class arduinoMotor(PseudoDevice):
                 pass
         self.busy = False
         
-    def isBusy:
+    def isBusy(self):
         return self.busy
