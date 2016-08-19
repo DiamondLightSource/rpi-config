@@ -119,7 +119,7 @@ void parseData(String command){
       logger("returnVal");
       char buf[4];
       logger(itoa(returnVal, buf, 10));
-      outgoingData = (String)pbuf + ",True," + buf + ",Value Read successfully//";
+      outgoingData = (String)pbuf + ",True," + buf + ",Value Read//";
     } else {
       outgoingData = (String)pbuf + ",False,None,Action Error:" + pbuf + "//";
       logger("Input Pin (internal Pullup) Doesn't support that action");
@@ -129,9 +129,10 @@ void parseData(String command){
       int returnVal;
       returnVal = analogRead(pin);
       logger("returnVal");
-      char buf[4];
+      logger(pbuf);
+      char buf[5];   //This is 5 as pbuf was ommitted when this was 4 
       logger(itoa(returnVal, buf, 10));
-      outgoingData = (String)pbuf + ",True," + buf + ",Value Read//";
+      outgoingData = (String)pbuf + ",True,"+ buf + ",Value Read//";
     } else {
       outgoingData = (String)pbuf + ",False,None,Action Error:" + pbuf + "//";
       logger("Action Not Supported");
