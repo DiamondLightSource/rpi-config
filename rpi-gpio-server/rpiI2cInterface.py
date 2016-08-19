@@ -3,6 +3,7 @@
 import com.pi4j.io.i2c.I2CBus as I2CBus
 import com.pi4j.io.i2c.I2CDevice as I2CDevice
 import com.pi4j.io.i2c.I2CFactory as I2CFactory
+import java.io.IOException as IOException
 import time
 import array
 
@@ -15,7 +16,7 @@ class Interface():
         targetDevice = None
         for device in Interface.interfaceDevices:
             if device[0] == instr[1:]:
-                targetDevice = device[1]             
+                targetDevice = device            
                 break
             else:
                 pass
@@ -36,10 +37,19 @@ class Interface():
     def createDevice(self, name, busAddress):
         device = self.bus.getDevice(busAddress)
         deviceName = name 
-        Interface.interfaceDevices.append([deviceName, device])
+        Interface.interfaceDevices.append([deviceName, device, busAddress])
         
     def write(self, device, message):
-        device.write(message)
+        counter = 0
+        success = False
+        while (counter < 10 and success = False):
+            try:
+                device[1].write(message)
+                success = True
+            except IOException:
+                try:
+                    device[1] = self.bus.getDevice(device[2])
+                counter += 1 
             
     def read(self, device):
         readBuffer = array.array('b', '.' * 32)
