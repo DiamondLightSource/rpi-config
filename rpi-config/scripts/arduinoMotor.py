@@ -26,33 +26,35 @@ class arduinoMotor(PseudoDevice):
                 self.currentPhase -= 1
             elif targetPhase > self.currentPhase:
                 self.currentPhase += 1
-                
-            if (abs(self.currentPhase)%8 == 1):
+            
+            phaseMod = abs(self.currentPhase)%8
+            
+            if (phaseMod == 1):
                 self.motorPin1.asynchronousMoveTo(1)
                 self.motorPin2.asynchronousMoveTo(0)
                 self.motorPin4.asynchronousMoveTo(0)
-            elif (abs(self.currentPhase)%8 == 2):
+            elif (phaseMod == 2):
                 self.motorPin1.asynchronousMoveTo(1)
                 self.motorPin2.asynchronousMoveTo(1)
-            elif (abs(self.currentPhase)%8 == 3):
+            elif (phaseMod == 3):
                 self.motorPin1.asynchronousMoveTo(0)
                 self.motorPin2.asynchronousMoveTo(1)
                 self.motorPin3.asynchronousMoveTo(0)
-            elif (abs(self.currentPhase)%8 == 4):
+            elif (phaseMod == 4):
                 self.motorPin2.asynchronousMoveTo(1)
                 self.motorPin3.asynchronousMoveTo(1)
-            elif (abs(self.currentPhase)%8 == 5):
+            elif (phaseMod == 5):
                 self.motorPin2.asynchronousMoveTo(0)
                 self.motorPin3.asynchronousMoveTo(1)
                 self.motorPin4.asynchronousMoveTo(0)
-            elif (abs(self.currentPhase)%8 == 6):
+            elif (phaseMod == 6):
                 self.motorPin3.asynchronousMoveTo(1)
                 self.motorPin4.asynchronousMoveTo(1)
-            elif (abs(self.currentPhase)%8 == 7):
+            elif (phaseMod == 7):
                 self.motorPin1.asynchronousMoveTo(0)
                 self.motorPin3.asynchronousMoveTo(0)
                 self.motorPin4.asynchronousMoveTo(1)
-            elif (abs(self.currentPhase)%8 == 0):
+            elif (phaseMod == 0):
                 self.motorPin1.asynchronousMoveTo(1)
                 self.motorPin4.asynchronousMoveTo(1)
             else:
