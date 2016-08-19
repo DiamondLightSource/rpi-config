@@ -28,7 +28,7 @@ class arduinoMotor(PseudoDevice):
             elif targetPhase > self.currentPhase:
                 self.currentPhase += 1
             
-            phaseMod = abs(self.currentPhase)%8
+            phaseMod = self.currentPhase%8
             
             if (phaseMod == 1):
                 self.motorPin1.asynchronousMoveTo(1)
@@ -61,8 +61,8 @@ class arduinoMotor(PseudoDevice):
             else:
                 pass
             
-            if (abs(self.currentPhase)%20 == 0):
-                time.sleep(0.1)
+            if (abs(self.currentPhase)%15 == 0):
+                time.sleep(0.2)
         self.busyTest = False
         
     def isBusy(self):
