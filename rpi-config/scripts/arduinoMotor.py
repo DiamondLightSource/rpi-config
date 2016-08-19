@@ -1,5 +1,6 @@
 from gda.device.scannable import PseudoDevice
 from arduinoScannable import arduinoScannable
+import time
 
 class arduinoMotor(PseudoDevice):
     
@@ -57,6 +58,7 @@ class arduinoMotor(PseudoDevice):
             elif (phaseMod == 0):
                 self.motorPin1.asynchronousMoveTo(1)
                 self.motorPin4.asynchronousMoveTo(1)
+                time.sleep(0.2)
             else:
                 pass
         self.busyTest = False
