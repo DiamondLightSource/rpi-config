@@ -12,14 +12,12 @@ class arduinoMotor(PseudoDevice):
         self.motorPin2 = motorPin2
         self.motorPin3 = motorPin3
         self.motorPin4 = motorPin4
-        self.busy = False
         self.currentPhase = 0
         
     def getPosition(self):
         return [self.motorPin1(),self.motorPin2(),self.motorPin3(),self.motorPin4()]
     
     def asynchronousMoveTo(self,newPosition):
-        self.busy = True
         targetPhase = self.currentPhase + newPosition
         while self.currentPhase != targetPhase:
             if targetPhase < self.currentPhase:
@@ -57,7 +55,6 @@ class arduinoMotor(PseudoDevice):
                 self.motorPin4.asynchronousMoveTo(1)
             else:
                 pass
-        self.busy = False
         
     def isBusy(self):
-        return self.busy
+        return [self.motorPin1.isBusy(),self.motorPin2.isBusy(),self.motorPin3.isBusy(),self.motorPin4.isBusy()]
