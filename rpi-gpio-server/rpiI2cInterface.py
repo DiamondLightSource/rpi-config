@@ -55,7 +55,7 @@ class Interface():
             
     def read(self, device):
         readBuffer = array.array('b', '.' * 32)
-        device.read(readBuffer, 0, 32)
+        device[1].read(readBuffer, 0, 32)
         print readBuffer
         readString = ""
         for i in readBuffer:
