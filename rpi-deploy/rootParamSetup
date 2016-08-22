@@ -14,5 +14,13 @@ echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /root/.bashrc
 
 echo 'dtparam=i2c_arm=on'>>/boot/config.txt
 
+grep "start_x=1" /boot/config.txt
+if grep "start_x=1" /boot/config.txt
+then
+        continue
+else
+        sed -i "s/start_x=0/start_x=1/g" /boot/config.txt
+fi
+
 echo "CHANGES MADE TO CONFIGS, REBOOTING"
 sudo reboot
