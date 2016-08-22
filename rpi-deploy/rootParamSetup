@@ -8,6 +8,7 @@ apt-get update &&  apt-get -y upgrade
 apt-get -y install oracle-java8-jdk
 apt-get -y install jython
 apt-get -y install python-picamera
+apt-get -y install i2c-tools
 
 #Gets Pi4J and WiringPi - used for GPIO communications
 cd ../..
@@ -30,6 +31,7 @@ echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /root/.bashrc
 
 #enables the i2c bus
 echo 'dtparam=i2c_arm=on'>>/boot/config.txt
+echo 'i2c-dev'>>/etc/modules
 
 #enables the Pi Camera
 grep "start_x=1" /boot/config.txt
