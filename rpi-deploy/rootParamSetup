@@ -1,6 +1,21 @@
 #!/bin/bash
 
+#Ensures root
 [ `whoami` = root ] || exec sudo su -c $0 root
+
+#get java & other software dependencies
+apt-get update &&  apt-get -y upgrade
+apt-get -y install oracle-java8-jdk
+apt-get -y install jython
+apt-get -y install python-picamera
+
+#Gets Pi4J and WiringPi - used for GPIO communications
+cd ../..
+git clone git://git.drogon.net/wiringPi
+cd wiringPi/
+./build
+cd ..
+curl -s get.pi4j.com | sudo bash
 
 #set JAVA_HOME to the path of the new java install
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc
@@ -9,11 +24,14 @@ echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashr
 echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib"'  >> /etc/bash.bashrc
 echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib"'  >> /root/.bashrc
 
+#sets a temp alias for monitoring CPU temp
 echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /etc/bash.bashrc
 echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /root/.bashrc
 
+#enables the i2c bus
 echo 'dtparam=i2c_arm=on'>>/boot/config.txt
 
+#enables the Pi Camera
 grep "start_x=1" /boot/config.txt
 if grep "start_x=1" /boot/config.txt
 then

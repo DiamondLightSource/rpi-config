@@ -1,12 +1,6 @@
 #!/bin/bash
 #Run on clean install of raspbian jessie lite to setup host parameters, IP settings and Java Configs
 
-#get java
-sudo apt-get update && sudo apt-get -y upgrade
-sudo apt-get -y install oracle-java8-jdk
-sudo apt-get -y install jython
-sudo apt-get -y install python-picamera
-
 #updates host and IP params
 cd /etc
 sudo sed -i -e 's/raspberrypi/p45-pi-01/g' hostname
