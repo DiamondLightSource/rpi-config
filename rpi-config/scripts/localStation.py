@@ -60,7 +60,7 @@ try:
     
     UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")
     UNObutton1 = arduinoScannable.arduinoScannable("UNObutton1", 12, "arduino-01", "i")
-    UNOanalog1 = arduinoScannable.arduinoScannable("UNObutton1", 2, "arduino-01", "a")
+    UNOanalog1 = arduinoScannable.arduinoScannable("UNOanalog1", 2, "arduino-01", "a")
     
     UNOmotor1a = arduinoScannable.arduinoScannable("UNOmotor1a", 8, "arduino-01", "o")
     UNOmotor1b = arduinoScannable.arduinoScannable("UNOmotor1b", 9, "arduino-01", "o")
