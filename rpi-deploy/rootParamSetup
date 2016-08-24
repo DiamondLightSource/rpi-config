@@ -10,8 +10,9 @@ apt-get -y install jython
 apt-get -y install python-picamera
 apt-get -y install i2c-tools
 
-#Gets Pi4J and WiringPi - used for GPIO communications
+#Gets Pi4J, WiringPi - used for GPIO communications and JRPiCam - the Java Raspberry Pi Camera Interface
 cd ../..
+git clone https://github.com/bseeley/JRPiCam.git
 git clone git://git.drogon.net/wiringPi
 cd wiringPi/
 ./build
@@ -22,8 +23,8 @@ curl -s get.pi4j.com | sudo bash
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
 
-echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib"'  >> /etc/bash.bashrc
-echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib"'  >> /root/.bashrc
+echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /etc/bash.bashrc
+echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /root/.bashrc
 
 #sets a temp alias for monitoring CPU temp
 echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /etc/bash.bashrc
