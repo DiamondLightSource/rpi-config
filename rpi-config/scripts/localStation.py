@@ -56,7 +56,7 @@ try:
     rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")
     
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
-    button1=rpiScannable.rpiScannable("BUTTON1", 1, "input")
+    button1=rpiScannable.rpiScannable("BUTTON1", 28, "input")
     
     UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")
     UNObutton1 = arduinoScannable.arduinoScannable("UNObutton1", 12, "arduino-01", "i")
