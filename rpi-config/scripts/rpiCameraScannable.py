@@ -1,34 +1,30 @@
-from gda.device.scannable import ScannableBase
+from gda.device.detector import DetectorBase
+from gda.jython import InterfaceProvider
 import rpiComms
 import time
 from org.slf4j import LoggerFactory
 
 logger = LoggerFactory.getLogger(__name__ + '.py')
 
-class rpiScannable(ScannableBase):
+class rpiCameraScannable(DetectorBase):
+    ## scan info - ScanInformation scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
     def __init__(self, name):
-        logger.debug("Init RPi Camera Scannable at pin ")
+        logger.debug("Camera Setup")
         self.setName(name)                                         # required
-        self.setInputNames(["pinState"])                           # required
-        self.setExtraNames([])                                     # required
-        self.setOutputFormat(["%s"])                               # required
-        rpiComms.rpiCommunicator.scannables.append(self)
-        rpiComms.commController.outgoingQueue.put(str(self.pin)+",n,"+self.ioState[0]+",None,0//")
-        logger.debug("Init of RPi Camera Scannable Completed Successfuly")
-
-    def isBusy(self):
-        return False
+        self.status = False
+            
+    def collectData(self):
+        
     
-    def getIDString(self):
-        return str(self.pin)+str(self.ioState)
-
-    def getFormattedPosition(self):
-        return self.getPosition()
-
-    def getPosition(self):
-        return "Outputs don't have a POS value"
-
-    def asynchronousMoveTo(self,new_position):
-        return 1
-
-
+    def readout(self):
+    
+    
+    def waitWhileBusy(self):
+    
+    
+    def atScanStart(self):
+        self.scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
+        self.datFile = self.scanInfo.getFilename() 
+        logger.debug("CAM DAT NAME =" + self.datFile)
+        rpiComms.commController.outgoingQueue.put("0,START,"+self.datFile+",None,0//")
+    

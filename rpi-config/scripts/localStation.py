@@ -11,6 +11,7 @@ import rpiScannable
 import arduinoScannable
 from rpiComms import initaliseCommunicator
 import arduinoMotor
+from rpiCameraScannable import rpiCameraScannable
 
         
 def isLive():
@@ -54,6 +55,8 @@ try:
     
     #RPiScannables     
     rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")
+    
+    PiCamera = rpiCameraScannable.rpiCameraScannable("PiCamera")
     
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 28, "input")

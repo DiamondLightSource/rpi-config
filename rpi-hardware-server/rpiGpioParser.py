@@ -3,9 +3,10 @@ import rpiQueues as Queues
 from java.lang import Thread, InterruptedException
 
 class Parser(Thread):
-    def __init__(self, interface, i2c):
+    def __init__(self, interface, i2c, camera):
         self.io = interface
         self.i2c = i2c
+        self.camera = camera
         self.parseQueue = True
 
     def run(self):
@@ -33,6 +34,8 @@ class Parser(Thread):
             else:
                 xcode = -1      #data to return
                 returnMessage = temp
+        elif (instr == "c"):
+            self.camera.parse(num, instr, pinType, pinState, duration)
         elif (instr[0] == "i"):
             xcode = self.i2c.parse(num, instr, pinType, pinState, duration)
             if (xcode != 5 and xcode != 0):

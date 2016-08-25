@@ -3,6 +3,7 @@ import rpiQueues as Queues
 import rpiGpioInterface as Interface
 import rpiGpioParser as Parser
 import rpiI2cInterface as i2cInterface
+import rpiCamera as Camera
 import socket
 import sys
 from java.lang import Thread, InterruptedException
@@ -67,7 +68,7 @@ class socketListener(Thread):       #controls input socket, appends data to queu
 #        #self.addParser()
 #    
 #    def run(self):
-#        self.addParser()
+#        self.addParser()import rpiCamera as Camera
 #        while self.parse:
 #            if Queues.commandQueue.qsize() > 10:
 #                self.addParser()
@@ -105,13 +106,14 @@ Queues.init()
 gpio = Interface.Interface()
 i2c = i2cInterface.Interface()
 i2c.createDevice("arduino-01", 04)
+cam = Camera.Camera()
 listener = socketSetup(50007)
 output = socketSetup(50008)
 listenThread = socketListener(listener)
 listenThread.start()
 #parserThread = parseController(gpio, i2c)
 #parserThread.start()
-mainParser = Parser.Parser(gpio, i2c)
+mainParser = Parser.Parser(gpio, i2c, cam)
 mainParser.start()
 responderThread = socketResponder(output)
 responderThread.start()
