@@ -5,7 +5,6 @@ import path
 
 class Camera:
     def __init__(self):
-        self.date = date.today()
         self.dirStub = "/home/pi/gda_data_non_live"
         self.defaultFileName = "000001.jpg"
         self.fileName = self.defaultFileName
@@ -15,15 +14,19 @@ class Camera:
         self.cam.setToDefaults()
         self.cam.setTimeout(0)
         
-    def parse(self, num, instr, pathString, pinState, duration):
-        if (instr == "START"):
+    def parse(self, num, instr, command, pathString, duration):
+        if (command == "START"):
             self.scanStart(pathString)
-        elif (instr == "CAPTURE"):
-            self.take()
-                        
+            return 0
+        elif (command == "CAPTURE"):
+            file = self.take()
+            return ("-1,True,"+file+",Image Captured//")
+        else:
+            return 5 
                 
     def dirCheck(self, path):
-        self.fullDir = dirStub +"/"+ str(self.date.year) +"/"+path
+        date = date.today()
+        self.fullDir = dirStub +"/"+ str(date.year) +"/"+path
         if not os.path.exists(self.fullDir):
             os.makedirs(self.fullDir)
         else:

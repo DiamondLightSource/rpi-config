@@ -34,8 +34,18 @@ class Parser(Thread):
             else:
                 xcode = -1      #data to return
                 returnMessage = temp
-        elif (instr == "c"):
-            self.camera.parse(num, instr, pinType, pinState, duration)
+        elif (instr[0] == "c"):
+            xcode = self.camera.parse(num, instr, pinType, pinState, duration)
+            if (xcode != 5 and xcode != 0):
+                returnMessage = ""
+                returnMessageElements = xcode.split("//")
+                for i in returnMessageElements:
+                    if len(i) > 3:
+                        i = i + "["+instr[1:]+"]" 
+                        returnMessage = returnMessage + i + "//"
+                    else:
+                        break
+                xcode = -2
         elif (instr[0] == "i"):
             xcode = self.i2c.parse(num, instr, pinType, pinState, duration)
             if (xcode != 5 and xcode != 0):
