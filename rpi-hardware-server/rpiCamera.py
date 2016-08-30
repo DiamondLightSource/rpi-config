@@ -24,10 +24,10 @@ class Camera:
             return 5 
                 
     def dirCheck(self, path):
-        date = date.today()
-        self.fullDir = dirStub +"/"+ str(date.year) +"/"+path
+        self.fullDir = path
         if not os.path.exists(self.fullDir):
             os.makedirs(self.fullDir)
+            self.fileFind()
         else:
             self.findFile()
             
@@ -48,6 +48,7 @@ class Camera:
             self.fileName = "0"+self.fileName
     
     def scanStart(self, path):
+        self.fileName = self.defaultFileName
         self.dirCheck(path)
         self.cam.setSaveDir(path)
     
