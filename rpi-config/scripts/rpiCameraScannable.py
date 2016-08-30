@@ -22,6 +22,8 @@ class rpiCameraScannable(DetectorBase):
         if (self.firstPoint == True):
             self.scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
             self.datFile = self.scanInfo.getFilename() 
+            logger.debug(self.scanInfo)
+            logger.debug(self.datFile)
             logger.debug("CAM DAT NAME =" + self.datFile)
             rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
             self.firstPoint = False
