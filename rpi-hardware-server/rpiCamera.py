@@ -55,6 +55,7 @@ class Camera:
         self.cam.setSaveDir(path)
     
     def take(self):
+        print self.fileName
         self.cam.takeStill(self.fileName)
         takenFile = self.fullDir+"/"+self.fileName
         self.nextFile()
