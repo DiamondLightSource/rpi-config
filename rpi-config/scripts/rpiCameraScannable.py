@@ -59,13 +59,14 @@ def get_absolute_path(path):
         dirs = self.datFile.split("/")
         cleanPath = []
         for dir in dirs:
+            logger.trace("DIR = "+ dir)
             if dir == "..":
                 cleanPath.pop()
             else:
                 cleanPath.append(dir)
+        logger.trace("path"+cleanPath)
         self.datFile = "/".join(cleanPath)
         logger.debug(self.datFile)
-    
         rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
         
     
