@@ -19,6 +19,12 @@ class rpiCameraScannable(DetectorBase):
         rpiComms.rpiCommunicator.scannables.append(self)
             
     def collectData(self):
+        if (self.firstPoint == True):
+            self.scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
+            self.datFile = self.scanInfo.getFilename() 
+            logger.debug("CAM DAT NAME =" + self.datFile)
+            rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
+            self.firstPoint = False
         self.busyStatus = True
         self.lastPosition = self.currentPosition
         rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",CAPTURE,None,0//")
@@ -31,12 +37,8 @@ class rpiCameraScannable(DetectorBase):
             if (self.lastPosition == self.currentPosition):
                 time.sleep(0.1)
             else:
-                self.busyStatus = False
-            
+                self.busyStatus = False     
     
     def atScanStart(self):
-        self.scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
-        self.datFile = self.scanInfo.getFilename() 
-        logger.debug("CAM DAT NAME =" + self.datFile)
-        rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
+        self.firstPoint = True
     
