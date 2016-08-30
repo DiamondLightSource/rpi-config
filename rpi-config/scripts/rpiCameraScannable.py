@@ -1,4 +1,6 @@
 from gda.device.detector import DetectorBase
+from gda.configuration.properties import LocalProperties
+import gda.data as data
 from gda.jython import InterfaceProvider
 import rpiComms
 import time
@@ -16,17 +18,12 @@ class rpiCameraScannable(DetectorBase):
         self.currentPosition = 0
         self.lastPosition = 0                                         # required
         self.busyStatus = False
+        beamlineName = LocalProperties.get("gda.beamline.name")
+        self.numTracker = data.NumTracker(beamlineName)
         rpiComms.rpiCommunicator.scannables.append(self)
             
     def collectData(self):
-        if (self.firstPoint == True):
-            self.scanInfo = InterfaceProvider.getCurrentScanInformationHolder().getCurrentScanInformation();
-            self.datFile = self.scanInfo.getFilename() 
-            logger.debug(self.scanInfo)
-            logger.debug(self.datFile)
-            logger.debug("CAM DAT NAME =" + self.datFile)
-            rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
-            self.firstPoint = False
+        
         self.busyStatus = True
         self.lastPosition = self.currentPosition
         rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",CAPTURE,None,0//")
@@ -42,5 +39,9 @@ class rpiCameraScannable(DetectorBase):
                 self.busyStatus = False     
     
     def atScanStart(self):
-        self.firstPoint = True
+        self.datFile = data.PathConstructor.createFromDefaultProperty()
+        logger.debug("CAM DAT NAME =" + self.datFile)
+        raise  
+        #rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
+        
     
