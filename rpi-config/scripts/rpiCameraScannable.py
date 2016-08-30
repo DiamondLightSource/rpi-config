@@ -36,17 +36,7 @@ class rpiCameraScannable(DetectorBase):
                 time.sleep(0.1)
             else:
                 self.busyStatus = False     
-    
-def get_absolute_path(path):
-    files = path.split("/")
-    l = []
-    for f in files:
-        if f == "..":
-            l.pop()
-        else:
-            l.append(f)
-    return "/".join(l)
-    
+
     def atScanStart(self):
         self.datFile = data.PathConstructor.createFromDefaultProperty()
         logger.debug("CAM DAT NAME =" + self.datFile)
