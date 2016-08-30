@@ -1,7 +1,7 @@
 import com.hopding.jrpicam as RPiCam
 from datetime import date
 import os
-import path
+from os import path
 
 class Camera:
     def __init__(self):
