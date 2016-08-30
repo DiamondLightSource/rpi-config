@@ -10,7 +10,6 @@ class Camera:
         self.fileName = self.defaultFileName
         self.fileCount = 0
         self.cam = RPiCam.RPiCamera()
-        self.cam.setToDefaults()
         self.cam.setTimeout(0)
         
     def parse(self, num, instr, command, pathString, duration):
