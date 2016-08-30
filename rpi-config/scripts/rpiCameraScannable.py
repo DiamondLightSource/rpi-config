@@ -42,7 +42,7 @@ class rpiCameraScannable(DetectorBase):
         logger.debug("CAM DAT NAME =" + self.datFile)
         num = self.numTracker.getCurrentFileNumber()
         logger.debug("NUM =" + str(num))
-        self.datFile = self.datFile + str(num)
+        self.datFile = self.datFile + "/" + str(num)
         logger.debug(self.datFile) 
         self.datFile = self.datFile.replace("//", "/")
         logger.debug(self.datFile)
