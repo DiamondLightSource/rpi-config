@@ -56,7 +56,7 @@ try:
     #RPiScannables     
     rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")
     
-    PiCamera = rpiCameraScannable.rpiCameraScannable("PiCamera")
+    PiCamera = rpiCameraScannable.rpiCameraScannable("picamera")
     
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 28, "input")
