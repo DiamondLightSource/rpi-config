@@ -9,7 +9,6 @@ class Camera:
         self.defaultFileName = "000001.jpg"
         self.fileName = self.defaultFileName
         self.fileCount = 0
-        self.dirCheck()
         self.cam = RPiCam.RPiCamera()
         self.cam.setToDefaults()
         self.cam.setTimeout(0)

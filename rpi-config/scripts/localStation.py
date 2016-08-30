@@ -11,7 +11,7 @@ import rpiScannable
 import arduinoScannable
 from rpiComms import initaliseCommunicator
 import arduinoMotor
-from rpiCameraScannable import rpiCameraScannable
+import rpiCameraScannable
 
         
 def isLive():
