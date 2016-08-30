@@ -16,10 +16,10 @@ class Camera:
     def parse(self, num, instr, command, pathString, duration):
         print command
         print pathString
-        if (command == "START"):
+        if (command == "start"):
             self.scanStart(pathString)
             return 0
-        elif (command == "CAPTURE"):
+        elif (command == "capture"):
             file = self.take()
             return ("-1,True,"+file+",Image Captured//")
         else:
