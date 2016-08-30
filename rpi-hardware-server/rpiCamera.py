@@ -45,7 +45,7 @@ class Camera:
         fileInt = int(self.fileName[:6])
         fileInt += 1
         self.fileName = str(fileInt)+".jpg"
-        while len(self.fileName < 10):
+        while len(self.fileName) < 10:
             self.fileName = "0"+self.fileName
     
     def scanStart(self, path):
