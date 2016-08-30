@@ -17,7 +17,7 @@ class Camera:
         print command
         print pathString
         if (command == "start"):
-            self.scanStart(pathString)
+            self.scanStart(pathString.lower())
             return 0
         elif (command == "capture"):
             file = self.take()
