@@ -43,6 +43,7 @@ class rpiCameraScannable(DetectorBase):
         num = self.numTracker.getCurrentFileNumber()
         logger.debug("NUM =" + str(num))
         self.datFile = self.datFile + str(num) 
+        self.datFile.replace("//", "/")
         rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
         
     
