@@ -23,7 +23,6 @@ class rpiCameraScannable(DetectorBase):
         rpiComms.rpiCommunicator.scannables.append(self)
             
     def collectData(self):
-        
         self.busyStatus = True
         self.lastPosition = self.currentPosition
         rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",CAPTURE,None,0//")
@@ -39,11 +38,10 @@ class rpiCameraScannable(DetectorBase):
                 self.busyStatus = False     
     
     def atScanStart(self):
-        self.datFile = data.PathConstructor.createFromDefaultProperty()
         logger.debug("CAM DAT NAME =" + self.datFile)
         num = self.numTracker.getCurrentFileNumber()
         logger.debug("NUM =" + str(num))
-        raise  
+        raise ##create your own 
         #rpiComms.commController.outgoingQueue.put("-1,c"+self.device+",START,"+self.datFile+",0//")
         
     
