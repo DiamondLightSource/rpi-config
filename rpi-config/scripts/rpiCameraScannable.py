@@ -38,6 +38,7 @@ class rpiCameraScannable(DetectorBase):
                 self.busyStatus = False     
     
     def atScanStart(self):
+        self.datFile = data.PathConstructor.createFromDefaultProperty()
         logger.debug("CAM DAT NAME =" + self.datFile)
         num = self.numTracker.getCurrentFileNumber()
         logger.debug("NUM =" + str(num))
