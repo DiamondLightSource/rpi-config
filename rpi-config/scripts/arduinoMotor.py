@@ -21,7 +21,8 @@ class arduinoMotor(PseudoDevice):
     
     def asynchronousMoveTo(self,newPosition):
         self.busyTest = True
-        targetPhase = self.currentPhase + newPosition
+        #targetPhase = self.currentPhase + newPosition    ##relative positioning
+        targetPhase = newPosition
         while self.currentPhase != targetPhase:
             if targetPhase < self.currentPhase:
                 self.currentPhase -= 1
