@@ -44,9 +44,11 @@ class Camera:
     def nextFile(self):
         fileInt = int(self.fileName[:6])
         fileInt += 1
+        print fileInt
         self.fileName = str(fileInt)+".jpg"
         while len(self.fileName) < 10:
             self.fileName = "0"+self.fileName
+            print self.fileName
     
     def scanStart(self, path):
         self.fileName = self.defaultFileName
@@ -55,7 +57,8 @@ class Camera:
     
     def take(self):
         print self.fileName
-        self.cam.takeStill(self.fileName, 2592, 1944)
+        returnCatcher = self.cam.takeStill(self.fileName, 2592, 1944)
+        print returnCatcher
         takenFile = self.fullDir+"/"+self.fileName
         self.nextFile()
         return takenFile
