@@ -14,6 +14,8 @@ class Camera:
         self.cam.setTimeout(0)
         
     def parse(self, num, instr, command, pathString, duration):
+        print command
+        print pathString
         if (command == "START"):
             self.scanStart(pathString)
             return 0
