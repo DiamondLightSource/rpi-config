@@ -19,29 +19,12 @@ cd wiringPi/
 cd ..
 curl -s get.pi4j.com | sudo bash
 
-#set JAVA_HOME to the path of the new java install
+#set JAVA_HOME to the path of the new java install as apt-get apparently doesn't do this
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
 
 echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /etc/bash.bashrc
 echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /root/.bashrc
-
-#sets a temp alias for monitoring CPU temp
-echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /etc/bash.bashrc
-echo 'alias temp="/opt/vc/bin/vcgencmd measure_temp"'  >> /root/.bashrc
-
-#enables the i2c bus
-echo 'dtparam=i2c_arm=on'>>/boot/config.txt
-echo 'i2c-dev'>>/etc/modules
-
-#enables the Pi Camera
-grep "start_x=1" /boot/config.txt
-if grep "start_x=1" /boot/config.txt
-then
-        continue
-else
-        sed -i "s/start_x=0/start_x=1/g" /boot/config.txt
-fi
 
 echo "CHANGES MADE TO CONFIGS, REBOOTING"
 sudo reboot
