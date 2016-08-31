@@ -12,11 +12,11 @@ class Camera:
         self.cam = RPiCam.RPiCamera()
         self.cam.setTimeout(1)  #must be int
         
-    def parse(self, num, instr, command, pathString, duration):
+    def parse(self, num, instr, command, pathString, scanNum):
         print command
         print pathString
         if (command == "start"):
-            self.scanStart(pathString.lower())
+            self.scanStart(pathString.lower(), scanNum)
             return 0
         elif (command == "capture"):
             file = self.take()
@@ -50,8 +50,9 @@ class Camera:
             self.fileName = "0"+self.fileName
             print self.fileName
     
-    def scanStart(self, path):
+    def scanStart(self, path, num):
         self.fileName = self.defaultFileName
+        self.scanNum = str(num)
         self.dirCheck(path)
         self.cam.setSaveDir(path)
     
@@ -59,7 +60,7 @@ class Camera:
         print self.fileName
         returnCatcher = self.cam.takeStill(self.fileName, 2592, 1944)
         print returnCatcher
-        takenFile = self.fullDir+"/"+self.fileName
+        takenFile = self.scanNum+"/"+self.fileName
         self.nextFile()
         return takenFile
     
