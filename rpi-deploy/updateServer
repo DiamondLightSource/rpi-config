@@ -1,0 +1,41 @@
+#!/bin/bash
+#Downloads a new version of the GDA built product following the same process as getServer
+
+cd ../../..
+#Get Current Server Build version number
+wget http://jenkins.diamond.ac.uk:8080/job/GDA.9.1-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/product_version_number.txt
+vnum=$(cat product_version_number.txt)
+
+#parse version number into server product url
+serverWebPrefix="http://jenkins.diamond.ac.uk:8080/job/GDA.9.1-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/"
+serverNamePrefix="GDA-server-"
+serverNameSuffix="-linux64"
+ext=".zip"
+fullServerName=$serverNamePrefix$vnum$serverNameSuffix
+fullServerAddress=$serverWebPrefix$fullServerName$ext
+
+#if a directory exists that matches the new version then it is assumed to be correctly installed.
+if [ -d "$fullServerName" ]; then
+	echo "Latest Version already installed"
+	exit
+fi
+
+#get server
+wget $fullServerAddress
+
+#unpack and add config
+unzip $fullServerName$ext
+cd $fullServerName
+git clone https://github.com/DiamondLightSource/rpi-config.git
+configPath=$PWD
+cd ..
+
+#cleans up and adds symbolic link to start script
+ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
+ln -s $configPath/rpi-config/rpi-deploy/startHardwareServer ./starthardware
+rm product_version_number.txt 
+rm $fullServerName$ext
+
+echo "New Server Downloaded"
+echo "The startgda and startgpio commands have been remapped"
+echo "Please remove the previous version using rm -rf OLD_GDA_FOLDER"

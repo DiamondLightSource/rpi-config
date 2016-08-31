@@ -1,9 +1,40 @@
 #!/bin/bash
-#Only run post reboot to setup the server 
-#downloads, unzips and sets up the server 
+#Downloads all the dependencies for the server
+#Then installs the server itself
 
-#Get Current Server version number
-cd ../..
+#Ensures root
+[ `whoami` = root ] || exec sudo su -c $0 root
+
+#get java & other software dependencies
+apt-get update &&  apt-get -y upgrade	#ensures system is up to date
+apt-get -y install oracle-java8-jdk		#ensures correct Java version is available
+apt-get -y install jython				#installs standalone jython
+apt-get -y install python-picamera		#installs the PiCamera Library (maybe pointless?)
+apt-get -y install i2c-tools			
+apt-get -y install git 					 
+
+#Gets Pi4J, WiringPi - used for GPIO communications and JRPiCam - the Java Raspberry Pi Camera Interface
+echo 'Downloading the JRPICam camera interface'
+git clone https://github.com/bseeley/JRPiCam.git
+echo 'Downloading the wiringPi interface'
+git clone git://git.drogon.net/wiringPi			#wiringPi is the interface Pi4J is built on top of 
+cd wiringPi/
+./build	
+cd ..
+echo 'Downloading the Pi4J Java GPIO interface'
+curl -s get.pi4j.com | sudo bash
+
+#set JAVA_HOME to the path of the new java install as apt-get apparently doesn't do this
+echo 'Setting up the JAVA_HOME and JYTHONPATH environment variables via bashrc'
+echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc		#both done twice due to varying sudo states for various elements
+echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
+
+#ensures the hardware server can access the pi4j library
+echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /etc/bash.bashrc
+echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.jar:/opt/pi4j/lib/pi4j-gpio-extension.jar:/opt/pi4j/lib/pi4j-service.jar:/usr/share/jython/Lib:/home/pi/JRPiCam/JRPiCam-v1.0.1.jar"'  >> /root/.bashrc
+
+
+#Get Current Server Build version number
 wget http://jenkins.diamond.ac.uk:8080/job/GDA.9.1-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/product_version_number.txt
 vnum=$(cat product_version_number.txt)
 
@@ -27,6 +58,10 @@ cd ..
 
 #cleans up and adds symbolic link to start script
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
+ln -s $configPath/rpi-config/rpi-deploy/startHardwareServer ./starthardware
 rm product_version_number.txt 
 rm $fullServerName$ext
 sudo rm -rf rpi-config
+
+echo "CHANGES MADE TO CONFIGS, REBOOTING"
+sudo reboot
