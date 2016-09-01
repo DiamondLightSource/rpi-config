@@ -15,7 +15,7 @@ class arduinoMotor(PseudoDevice):
         self.motorPin2 = motorPin2
         self.motorPin3 = motorPin3
         self.motorPin4 = motorPin4
-        self.stepAngleConversion = 360/stepsPerRotation
+        self.stepAngleConversion = 360.0/stepsPerRotation
         self.currentPhase = 0
         self.busyTest = False
         
