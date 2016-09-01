@@ -13,7 +13,7 @@ echo "      / / __/ / / / /| |   Welcome to the GDA"
 echo "     / /_/ / /_/ / ___ |   for Raspberry Pi Installer" 
 echo "     \____/_____/_/  |_|"
 echo 
-echo Performing system update & install of dependencies
+echo Performing system update and install of dependencies
 echo ==================================================== 
 
 echo ====================================================
