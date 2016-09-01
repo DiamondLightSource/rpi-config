@@ -35,11 +35,11 @@ echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.j
 
 
 #Get Current Server Build version number
-wget http://jenkins.diamond.ac.uk:8080/job/GDA.9.1-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/product_version_number.txt
+wget https://alfred.diamond.ac.uk/GDA/downloads/releases/GDA-server-product_version_number.txt
 vnum=$(cat product_version_number.txt)
 
 #parse version number into server product url
-serverWebPrefix="http://jenkins.diamond.ac.uk:8080/job/GDA.9.1-create.product-gdaserver/lastSuccessfulBuild/artifact/artifacts_to_archive/"
+serverWebPrefix="https://alfred.diamond.ac.uk/GDA/downloads/releases/"
 serverNamePrefix="GDA-server-"
 serverNameSuffix="-linux64"
 ext=".zip"
