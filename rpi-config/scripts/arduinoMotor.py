@@ -20,12 +20,19 @@ class arduinoMotor(PseudoDevice):
         return [self.stepsToDegrees(self.currentPhase), self.currentPhase] 
                 
     def stepsToDegrees(self, valSteps):
-        valDegrees = valSteps * self.stepAngleConversion
-        return valDegrees
+        if valSteps != 0:    
+            valDegrees = valSteps * self.stepAngleConversion
+            return valDegrees
+        else:
+            return 0
+        
     
     def degreesToSteps(self, valDegrees):
-        valSteps = valDegrees / self.stepAngleConversion
-        return valSteps
+        if valDegrees != 0    
+            valSteps = valDegrees / self.stepAngleConversion
+            return valSteps
+        else:
+            return 0
     
     def asynchronousMoveTo(self,newPosition):
         newPosition = self.degreesToSteps(newPosition)
