@@ -20,6 +20,7 @@ class arduinoMotor(PseudoDevice):
         return [self.stepsToDegrees(self.currentPhase), self.currentPhase] 
                 
     def stepsToDegrees(self, valSteps):
+        logger.debug(valSteps)
         if valSteps != 0:    
             valDegrees = valSteps * self.stepAngleConversion
             return valDegrees
@@ -28,7 +29,8 @@ class arduinoMotor(PseudoDevice):
         
     
     def degreesToSteps(self, valDegrees):
-        if valDegrees != 0    
+        logger.debug(valDegrees)
+        if valDegrees != 0:    
             valSteps = valDegrees / self.stepAngleConversion
             return valSteps
         else:
