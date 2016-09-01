@@ -3,5 +3,8 @@
 #Ensures root
 [ `whoami` = root ] || exec sudo su -c $0 root
 
-cd ../rpi-hardware-server
+#Finds Directory of Script
+DIR="$(dirname "$(readlink -f "$0")")"
+
+cd $DIR/../rpi-hardware-server
 ./rpiHardwareServer.py

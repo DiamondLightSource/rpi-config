@@ -104,7 +104,7 @@ echo ====================================================
 #cleans up and adds symbolic link to start script
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
 ln -s $configPath/rpi-config/rpi-deploy/startHardwareServer ./starthardware
-rm GDA-Server-product_version_number.txt 
+rm GDA-server-product_version_number.txt 
 rm $fullServerName$ext
 sudo rm -rf rpi-config
 
