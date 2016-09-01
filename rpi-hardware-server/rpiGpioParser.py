@@ -17,6 +17,7 @@ class Parser(Thread):
                 Queues.outputQueue.put(outputText)
             
     def parse(self, inputString):
+        print(inputString)
         num, instr, pinType, pinState, duration = self.splitCommandString(inputString)
         xcode, returnMessage = self.commandInterpreter(num, instr, pinType, pinState, duration)
         return self.returnCodes(num, xcode, returnMessage)

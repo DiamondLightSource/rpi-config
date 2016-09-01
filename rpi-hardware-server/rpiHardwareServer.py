@@ -35,8 +35,7 @@ def socketSetup(port):
         break
     
     if s is None:
-        print ("could not open socket") 
-        sys.exit(1)
+        s = socketSetup(port)
     
     return s
 
