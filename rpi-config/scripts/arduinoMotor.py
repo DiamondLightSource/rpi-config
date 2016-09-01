@@ -82,9 +82,7 @@ class arduinoMotor(PseudoDevice):
                 self.motorPin4.asynchronousMoveTo(1)
             else:
                 pass
-            
-            if (abs(self.currentPhase)%10 == 0):
-                time.sleep(0.2)
+            time.sleep(0.05)
         self.busyTest = False
         
     def isBusy(self):
