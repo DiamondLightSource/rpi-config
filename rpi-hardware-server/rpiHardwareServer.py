@@ -6,6 +6,7 @@ import rpiI2cInterface as i2cInterface
 import rpiCamera as Camera
 import socket
 import sys
+import time
 from java.lang import Thread, InterruptedException
 
 def socketSetup(port):
@@ -35,6 +36,7 @@ def socketSetup(port):
         break
     
     if s is None:
+        time.sleep(1)
         s = socketSetup(port)
     
     return s
