@@ -6,26 +6,59 @@
 [ `whoami` = root ] || exec sudo su -c $0 root
 
 #get java & other software dependencies
+echo ====================================================
+echo        __________  ___ 
+echo       / ____/ __ \/   |
+echo      / / __/ / / / /| |   Welcome to the GDA
+echo     / /_/ / /_/ / ___ |   for Raspberry Pi installer 
+echo     \____/_____/_/  |_|	
+echo 
+echo Performing system update & install of dependencies
+echo ==================================================== 
+
+echo ====================================================
+echo Installing Java 8 & Jython
+echo ====================================================
 apt-get update &&  apt-get -y upgrade	#ensures system is up to date
 apt-get -y install oracle-java8-jdk		#ensures correct Java version is available
 apt-get -y install jython				#installs standalone jython
+
+echo ====================================================
+echo Installing PiCamera and I2C tools
+echo ====================================================
 apt-get -y install python-picamera		#installs the PiCamera Library (maybe pointless?)
 apt-get -y install i2c-tools			
+
+echo ====================================================
+echo Installing Git
+echo ====================================================
 apt-get -y install git 					 
 
 #Gets Pi4J, WiringPi - used for GPIO communications and JRPiCam - the Java Raspberry Pi Camera Interface
-echo 'Downloading the JRPICam camera interface'
+
+echo ====================================================
+echo Installing the JRPICam PiCamera Interface
+echo ====================================================
 git clone https://github.com/bseeley/JRPiCam.git
-echo 'Downloading the wiringPi interface'
+
+echo ====================================================
+echo Installing the wiringPi GPIO interface
+echo ====================================================
 git clone git://git.drogon.net/wiringPi			#wiringPi is the interface Pi4J is built on top of 
 cd wiringPi/
 ./build	
 cd ..
-echo 'Downloading the Pi4J Java GPIO interface'
+
+echo ====================================================
+echo Installing PI4J: the wiringPi Java wrapper
+echo ====================================================
 curl -s get.pi4j.com | sudo bash
 
 #set JAVA_HOME to the path of the new java install as apt-get apparently doesn't do this
-echo 'Setting up the JAVA_HOME and JYTHONPATH environment variables via bashrc'
+echo ====================================================
+echo Setting up the JAVA_HOME and JYTHONPATH environment 
+echo variables via bashrc
+echo ====================================================
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /etc/bash.bashrc		#both done twice due to varying sudo states for various elements
 echo "export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt" >> /root/.bashrc
 
@@ -35,6 +68,9 @@ echo 'export JYTHONPATH="/opt/pi4j/lib/pi4j-core.jar:/opt/pi4j/lib/pi4j-device.j
 
 
 #Get Current Server Build version number
+echo ====================================================
+echo Getting Most Recent Available GDA Build Number
+echo ====================================================
 wget https://alfred.diamond.ac.uk/GDA/downloads/releases/GDA-server-product_version_number.txt
 vnum=$(cat GDA-server-product_version_number.txt)
 
@@ -46,9 +82,15 @@ ext=".zip"
 fullServerName=$serverNamePrefix$vnum$serverNameSuffix
 fullServerAddress=$serverWebPrefix$fullServerName$ext
 
-#get server
+
+echo ====================================================
+echo Getting GDA Build
+echo ====================================================
 wget $fullServerAddress
 
+echo ====================================================
+echo Unpacking build and installing Pi Config
+echo ====================================================
 #unpack and add config
 unzip $fullServerName$ext
 cd $fullServerName
@@ -56,6 +98,9 @@ git clone https://github.com/DiamondLightSource/rpi-config.git
 configPath=$PWD
 cd ..
 
+echo ====================================================
+echo Creating Symlinks and Cleaning Up
+echo ====================================================
 #cleans up and adds symbolic link to start script
 ln -s $configPath/rpi-config/rpi-deploy/startServer ./startgda
 ln -s $configPath/rpi-config/rpi-deploy/startHardwareServer ./starthardware
@@ -63,5 +108,7 @@ rm GDA-Server-product_version_number.txt
 rm $fullServerName$ext
 sudo rm -rf rpi-config
 
-echo "CHANGES MADE TO CONFIGS, REBOOTING"
+echo ====================================================
+echo Rebooting Pi 
+echo ====================================================
 sudo reboot
