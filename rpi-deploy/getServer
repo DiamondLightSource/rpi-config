@@ -7,12 +7,11 @@
 
 #get java & other software dependencies
 echo ====================================================
-:::         __________  ___ 
-:::        / ____/ __ \/   |
-:::       / / __/ / / / /| |   Welcome to the GDA
-:::      / /_/ / /_/ / ___ |   for Raspberry Pi installer 
-:::      \____/_____/_/  |_|
-for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
+echo "        __________  ___" 
+echo "       / ____/ __ \/   |"
+echo "      / / __/ / / / /| |   Welcome to the GDA"
+echo "     / /_/ / /_/ / ___ |   for Raspberry Pi Installer" 
+echo "     \____/_____/_/  |_|"
 echo 
 echo Performing system update & install of dependencies
 echo ==================================================== 
