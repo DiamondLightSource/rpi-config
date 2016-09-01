@@ -7,17 +7,18 @@
 
 #get java & other software dependencies
 echo ====================================================
-echo         __________  ___ 
-echo        / ____/ __ \/   \|
-echo       / / __/ / / / /\| \|   Welcome to the GDA
-echo      / /_/ / /_/ / ___ \|   for Raspberry Pi installer 
-echo      \____/_____/_/  \|_\|
+:::         __________  ___ 
+:::        / ____/ __ \/   |
+:::       / / __/ / / / /| |   Welcome to the GDA
+:::      / /_/ / /_/ / ___ |   for Raspberry Pi installer 
+:::      \____/_____/_/  |_|
+for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
 echo 
 echo Performing system update & install of dependencies
 echo ==================================================== 
 
 echo ====================================================
-echo Installing Java 8 & Jython
+echo Installing Java 8 and Jython
 echo ====================================================
 apt-get update &&  apt-get -y upgrade	#ensures system is up to date
 apt-get -y install oracle-java8-jdk		#ensures correct Java version is available
