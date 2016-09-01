@@ -1,6 +1,7 @@
 from gda.device.scannable import PseudoDevice
 from arduinoScannable import arduinoScannable
 import time
+from org.slf4j import LoggerFactory
 
 logger = LoggerFactory.getLogger(__name__ + '.py')
 
