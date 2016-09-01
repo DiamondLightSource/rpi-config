@@ -2,6 +2,8 @@ from gda.device.scannable import PseudoDevice
 from arduinoScannable import arduinoScannable
 import time
 
+logger = LoggerFactory.getLogger(__name__ + '.py')
+
 class arduinoMotor(PseudoDevice):
     def __init__(self, name, stepsPerRotation, motorPin1, motorPin2, motorPin3, motorPin4):
         self.setName(name)                                         # required
