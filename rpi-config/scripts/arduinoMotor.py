@@ -3,23 +3,32 @@ from arduinoScannable import arduinoScannable
 import time
 
 class arduinoMotor(PseudoDevice):
-    
-    def __init__(self,name, motorPin1, motorPin2, motorPin3, motorPin4):
+    def __init__(self, name, stepsPerRotation, motorPin1, motorPin2, motorPin3, motorPin4):
         self.setName(name)                                         # required
-        self.setInputNames(["Position"])                       # required
-        self.setExtraNames([])      # required
-        self.setOutputFormat(["%s"])    # required
+        self.setInputNames(["Angle (Degrees)"])                       # required
+        self.setExtraNames(["Position (Steps)"])      # required
+        self.setOutputFormat(["%s", "%s"])    # required
         self.motorPin1 = motorPin1
         self.motorPin2 = motorPin2
         self.motorPin3 = motorPin3
         self.motorPin4 = motorPin4
+        self.stepAngleConversion = 360/stepsPerRotation
         self.currentPhase = 0
         self.busyTest = False
         
     def getPosition(self):
-        return self.currentPhase
+        return [self.stepsToDegrees(self.currentPhase), self.currentPhase] 
+                
+    def stepsToDegrees(self, valSteps):
+        valDegrees = valSteps * self.stepAngleConversion
+        return valDegrees
+    
+    def degreesToSteps(self, valDegrees):
+        valSteps = valDegrees / self.stepAngleConversion
+        return valSteps
     
     def asynchronousMoveTo(self,newPosition):
+        newPosition = self.degreesToSteps(newPosition)
         self.busyTest = True
         #targetPhase = self.currentPhase + newPosition    ##relative positioning
         targetPhase = newPosition
