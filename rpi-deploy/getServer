@@ -7,11 +7,11 @@
 
 #get java & other software dependencies
 echo ====================================================
-echo "        __________  ___" 
-echo "       / ____/ __ \/   |"
-echo "      / / __/ / / / /| |   Welcome to the GDA"
-echo "     / /_/ / /_/ / ___ |   for Raspberry Pi installer" 
-echo "     \____/_____/_/  |_|	"
+echo         __________  ___ 
+echo        / ____/ __ \/   \|
+echo       / / __/ / / / /| \|   Welcome to the GDA
+echo      / /_/ / /_/ / ___ \|   for Raspberry Pi installer 
+echo      \____/_____/_/  \|_\|
 echo 
 echo Performing system update & install of dependencies
 echo ==================================================== 
