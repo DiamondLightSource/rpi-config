@@ -9,8 +9,8 @@
 echo ====================================================
 echo "        __________  ___" 
 echo "       / ____/ __ \/   |"
-echo "      / / __/ / / / /| |   Welcome to the GDA"
-echo "     / /_/ / /_/ / ___ |   for Raspberry Pi Installer" 
+echo "      / / __/ / / / /| |   Welcome to the GDA for"
+echo "     / /_/ / /_/ / ___ |   Raspberry Pi Installer" 
 echo "     \____/_____/_/  |_|"
 echo 
 echo Performing system update and install of dependencies
@@ -52,7 +52,7 @@ cd ..
 echo ====================================================
 echo Installing PI4J: the wiringPi Java wrapper
 echo ====================================================
-curl -s get.pi4j.com | sudo bash
+curl -s get.pi4j.com | bash
 
 #set JAVA_HOME to the path of the new java install as apt-get apparently doesn't do this
 echo ====================================================
