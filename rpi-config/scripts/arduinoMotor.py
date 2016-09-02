@@ -59,7 +59,7 @@ class arduinoMotor(PseudoDevice):
                 self.currentPhase += 1
             
             phaseMod = self.currentPhase%8
-            logger.trace("Phase Mod: " + phaseMod)
+            logger.trace("Phase Mod: " + str(phaseMod))
             
             if (phaseMod == 1):
                 self.motorPin1.asynchronousMoveTo(1)
