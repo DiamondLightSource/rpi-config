@@ -64,4 +64,5 @@ class Interface():
             else:
                 continue
             readString = readString + chr(i)
+        print readString
         return readString
