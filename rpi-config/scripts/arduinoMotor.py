@@ -23,7 +23,7 @@ class arduinoMotor(PseudoDevice):
         return [self.stepsToDegrees(self.currentPhase), self.currentPhase] 
                 
     def stepsToDegrees(self, valSteps):
-        logger.debug(str(valSteps))
+        logger.debug("Steps: "+str(valSteps))
         if valSteps != 0:    
             valDegrees = valSteps * self.stepAngleConversion
             return valDegrees
@@ -32,7 +32,7 @@ class arduinoMotor(PseudoDevice):
         
     
     def degreesToSteps(self, valDegrees):
-        logger.debug(str(valDegrees))
+        logger.debug("Degrees: "+str(valDegrees))
         if valDegrees != 0:    
             valSteps = valDegrees / self.stepAngleConversion
             return valSteps
@@ -41,16 +41,20 @@ class arduinoMotor(PseudoDevice):
     
     def asynchronousMoveTo(self,newPosition):
         newPosition = self.degreesToSteps(newPosition)
+        logger.trace("New Position: "+str(newPosition))
         self.busyTest = True
         #targetPhase = self.currentPhase + newPosition    ##relative positioning
         targetPhase = newPosition
         while self.currentPhase != targetPhase:
+            logger.trace("Current Phase: "+str(self.currentPhase))
+            logger.trace("Target Phase: "+str(targetPhase))
             if targetPhase < self.currentPhase:
                 self.currentPhase -= 1
             elif targetPhase > self.currentPhase:
                 self.currentPhase += 1
             
             phaseMod = self.currentPhase%8
+            logger.trace("Phase Mod: " + phaseMod)
             
             if (phaseMod == 1):
                 self.motorPin1.asynchronousMoveTo(1)
@@ -82,7 +86,7 @@ class arduinoMotor(PseudoDevice):
                 self.motorPin4.asynchronousMoveTo(1)
             else:
                 pass
-            time.sleep(0.05)
+            time.sleep(0.1)
         self.busyTest = False
         
     def isBusy(self):
