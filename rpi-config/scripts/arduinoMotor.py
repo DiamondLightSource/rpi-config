@@ -45,6 +45,11 @@ class arduinoMotor(PseudoDevice):
         self.busyTest = True
         #targetPhase = self.currentPhase + newPosition    ##relative positioning
         targetPhase = newPosition
+        if targetPhase%1 < 0.5:
+            targetPhase = int(targetPhase)
+        else:
+            targetPhase = int(targetPhase) + 1
+            
         while self.currentPhase != targetPhase:
             logger.trace("Current Phase: "+str(self.currentPhase))
             logger.trace("Target Phase: "+str(targetPhase))
