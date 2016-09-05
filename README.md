@@ -1,4 +1,4 @@
-# rpi-config
-GDA configuration and documentation for the Raspberry Pi server version.
+# GDA for Raspberry Pi
 
-See Diamond Confluence for Docs
+
+
