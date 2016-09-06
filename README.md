@@ -3,6 +3,15 @@
 ##Overview
 This is the Raspberry Pi version of [GDA](http://www.opengda.org/)
 
+<!-- MarkdownTOC autolink="true" bracket="round"-->
+
+- [Installation](#installation)
+- [Initial Setup](#initial-setup)
+- [Example Output Data](#example-output-data)
+
+<!-- /MarkdownTOC -->
+
+
 ##Installation
 ###Requirements:
 There are a few things you need before installing GDA:
@@ -24,7 +33,7 @@ Inside [`/rpi-config/scripts`][scripts], there is a file, [`localstation.py`][lo
 - Remove all the lines with an `UNO` prefix, like this: `UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")`
 
 
-###Example Output Data
+##Example Output Data
 There are a pair of example datasets available [here.](https://alfred.diamond.ac.uk/GDA-RPi/) The data files alone are available in [`/example-data`][example]
 
 [getServer]: https://github.com/DiamondLightSource/rpi-config/blob/master/rpi-deploy/getServer
