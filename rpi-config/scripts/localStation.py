@@ -6,13 +6,14 @@ from gda.configuration.properties import LocalProperties
 from gdascripts.messages import handle_messages
 from gda.jython import InterfaceProvider
 from gda.device.scannable import ScannableBase
+#Raspberry Pi Specific
 import rpiComms
 import rpiScannable
 import arduinoScannable
 from rpiComms import initaliseCommunicator
 import arduinoMotor
 import rpiCameraScannable
-
+#End of Raspberry Pi Specific
         
 def isLive():
     mode = LocalProperties.get("gda.mode")
@@ -53,14 +54,20 @@ try:
     inctime=showincrementaltimeClass('inctime')
     actualTime=actualTimeClass("actualTime")
     
-    #RPiScannables     
-    rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")
-    
-    PiCamera = rpiCameraScannable.rpiCameraScannable("picamera")
-    
+    #===================================================
+    #Raspberry Pi Specific Objects
+    #===================================================
+    #RPi Communication Interface
+    rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk") #enter the Pi's IP address, localhost should work
+
+    #PiCamera Interface
+    PiCamera = rpiCameraScannable.rpiCameraScannable("picamera") 
+   
+    #GPIO Devices
     led1=rpiScannable.rpiScannable("LED1", 29, "output")
     button1=rpiScannable.rpiScannable("BUTTON1", 28, "input")
     
+    #Arduino Devices
     UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")
     UNObutton1 = arduinoScannable.arduinoScannable("UNObutton1", 12, "arduino-01", "i")
     UNOanalog1 = arduinoScannable.arduinoScannable("UNOanalog1", 2, "arduino-01", "a")
@@ -70,6 +77,10 @@ try:
     UNOmotor1c = arduinoScannable.arduinoScannable("UNOmotor1c", 10, "arduino-01", "o")
     UNOmotor1d = arduinoScannable.arduinoScannable("UNOmotor1d", 11, "arduino-01", "o")
     UNOmotor1 = arduinoMotor.arduinoMotor("UNOmotor1", 4096, UNOmotor1a, UNOmotor1b, UNOmotor1c, UNOmotor1d)
+
+    #===================================================
+    #End of Raspberry Pi Specific Objects
+    #===================================================
 
     #run user editable startup script 
     if isLive():
