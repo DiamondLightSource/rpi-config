@@ -106,8 +106,16 @@ class socketResponder(Thread):      #controls the response socket and sends all 
 Queues.init()
 gpio = Interface.Interface()
 i2c = i2cInterface.Interface()
+
+#===============================================
+#Arduino Devices
+#===============================================
 i2c.createDevice("arduino-01", 04)
+#===============================================
+#Camera
+#===============================================
 cam = Camera.Camera()
+#===============================================
 listener = socketSetup(50007)
 output = socketSetup(50008)
 listenThread = socketListener(listener)
