@@ -3,26 +3,26 @@
 ##Overview
 This is the Raspberry Pi version of [GDA](http://www.opengda.org/). 
 
-<!-- MarkdownTOC https://www.raspberrypi.org/downloads/raspbian/" bracket="round" depth="4" -->
+<!-- MarkdownTOC autolink="true" bracket="round" depth="4" -->
 
-- Installation
-	- Requirements:
-	- Install Process
-- Initial Setup
-	- Creating Scannable Devices for Pins
-	- Creating Scannable Devices for Arduinos
-		- PinModes
-		- Creating Arduino Motors
-- Using GDA
-	- Full Process Tutorial - From Blank SD through to 3D reconstruction
-- Example Output Data
+- [Installation](#installation)
+	- [Requirements:](#requirements)
+	- [Install Process](#install-process)
+- [Initial Setup](#initial-setup)
+	- [Creating Scannable Devices for GPIO Pins](#creating-scannable-devices-for-gpio-pins)
+	- [Creating Scannable Devices for Arduinos](#creating-scannable-devices-for-arduinos)
+		- [PinModes](#pinmodes)
+		- [Creating Arduino Motors](#creating-arduino-motors)
+- [Using GDA](#using-gda)
+	- [Full Process Tutorial - From Blank SD through to 3D reconstruction](#full-process-tutorial---from-blank-sd-through-to-3d-reconstruction)
+- [Example Output Data](#example-output-data)
 
 <!-- /MarkdownTOC -->
 
 ##Installation
 ###Requirements:
 There are a few things you need before installing GDA:
-- A Raspberry Pi 3
+- A Raspberry Pi 3 with a PiCamera
 - An SD card imaged with a clean install of Raspbian Lite
 	- Available [here.][raspbian]
 - An Internet Connection
@@ -46,12 +46,12 @@ Inside [`/rpi-config/scripts`][scripts], there is a file, [`localstation.py`][lo
 	- Remove all the lines with an `UNO` prefix, like this: `UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")`
 	- From the main file of the [`hardware server`][hardwareServer] you need to remove everything in the Arduino Devices section. 
 
-###Creating Scannable Devices for Pins
+###Creating Scannable Devices for GPIO Pins
 All the pins on the Pi can be controlled individually using RPiScannables as shown in the example configuration in [`localstation.py`][localstation]. They follow a standard template which looks like this:
 
 PinName = rpiScannable.rpiScannable("PinName", PinNumber, "output" or "input")
 
-Bear in mind that the hardware server uses [Pi4J][pi4j] to control the GPIO and subsequently uses pi4j's pin numbering scheme, a diagram of which can be found [here.][pi4j-pin-number] (An additional copy is included in [/docs][docs])
+Bear in mind that the hardware server uses [Pi4J][pi4j] to control the GPIO and subsequently uses pi4j's pin numbering scheme, a diagram of which can be found [here.][pi4j-pin-number] (An additional copy is included in [`/docs`][docs])
 
 ###Creating Scannable Devices for Arduinos
 As with RPi scannables each pin on the Arduino can be controlled individually, however there are slightly more options available. The standard template looks like this:
@@ -59,7 +59,6 @@ As with RPi scannables each pin on the Arduino can be controlled individually, h
 PinName = arduinoScannable.arduinoScannable("PinName", PinNumber, "DeviceName","PinMode")
 
 Here's a brief explanation of each component of the template and the values they support. 
-
 
 | Entry 	 	| Valid Inputs	| Definitions	|
 | -------------	| ------------- | ------------- |
@@ -83,7 +82,6 @@ The system also contains native support for basic stepper motors controlled via 
 MotorName = arduinoMotor.arduinoMotor("MotorName", stepsPerRotation, Pin1Scannable, Pin2Scannable, Pin3Scannable, Pin4Scannable)
 
 Here's a brief explanation of each component of the template and the values they support. 
-
 
 | Entry 	 	| Valid Inputs	| Definitions	|
 | -------------	| ------------- | ------------- |
