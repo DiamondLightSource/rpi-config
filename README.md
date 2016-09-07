@@ -3,18 +3,19 @@
 ##Overview
 This is the Raspberry Pi version of [GDA](http://www.opengda.org/). 
 
-<!-- MarkdownTOC autolink="true" bracket="round" depth="4" -->
+<!-- MarkdownTOC https://www.raspberrypi.org/downloads/raspbian/" bracket="round" depth="4" -->
 
-- [Installation](#installation)
-	- [Requirements:](#requirements)
-	- [Install Process](#install-process)
-- [Initial Setup](#initial-setup)
-	- [Creating Scannable Devices for Pins](#creating-scannable-devices-for-pins)
-	- [Creating Scannable Devices for Arduinos](#creating-scannable-devices-for-arduinos)
-		- [PinModes](#pinmodes)
-		- [Creating Arduino Motors](#creating-arduino-motors)
-- [Using GDA](#using-gda)
-- [Example Output Data](#example-output-data)
+- Installation
+	- Requirements:
+	- Install Process
+- Initial Setup
+	- Creating Scannable Devices for Pins
+	- Creating Scannable Devices for Arduinos
+		- PinModes
+		- Creating Arduino Motors
+- Using GDA
+	- Full Process Tutorial - From Blank SD through to 3D reconstruction
+- Example Output Data
 
 <!-- /MarkdownTOC -->
 
@@ -23,7 +24,7 @@ This is the Raspberry Pi version of [GDA](http://www.opengda.org/).
 There are a few things you need before installing GDA:
 - A Raspberry Pi 3
 - An SD card imaged with a clean install of Raspbian Lite
-	- Available [here.](https://www.raspberrypi.org/downloads/raspbian/)
+	- Available [here.][raspbian]
 - An Internet Connection
 
 ###Install Process
@@ -50,33 +51,49 @@ All the pins on the Pi can be controlled individually using RPiScannables as sho
 
 PinName = rpiScannable.rpiScannable("PinName", PinNumber, "output" or "input")
 
-Bear in mind that the hardware server uses [Pi4J][pi4j] to control the GPIO and subsequently uses pi4j's pin numbering scheme, a diagram of which can be found [here.][pi4j-pin-number] (An aditional copy is included in [/docs][docs])
+Bear in mind that the hardware server uses [Pi4J][pi4j] to control the GPIO and subsequently uses pi4j's pin numbering scheme, a diagram of which can be found [here.][pi4j-pin-number] (An additional copy is included in [/docs][docs])
 
 ###Creating Scannable Devices for Arduinos
-As with RPi scannables each pin on the Arduino can be controlled individually, however there are slightly more options available:
+As with RPi scannables each pin on the Arduino can be controlled individually, however there are slightly more options available. The standard template looks like this:
 
 PinName = arduinoScannable.arduinoScannable("PinName", PinNumber, "DeviceName","PinMode")
+
+Here's a brief explanation of each component of the template and the values they support. 
+
 
 | Entry 	 	| Valid Inputs	| Definitions	|
 | -------------	| ------------- | ------------- |
 | PinName	 	| Any non-null string 	| This is the name used to refer to the pin by GDA 	|
-| PinNumber  	| Any integer (range dependant on arduino model) | This should be an integer, remove the A from analog pins |
+| PinNumber  	| Any integer (range dependant on arduino model) | This should be an integer, remove the A from analogue pins |
 | DeviceName 	| Any string which corresponds to an i2c.createDevice statement in the [`hardware server`][hardwareServer]	| This name will be used to ensure that the pin is set up on the correct device |
 | PinMode		| See the table [below](#pinmodes)| Sets the operating mode of the pin |
-
 
 ####PinModes
 | Pin Mode Values | Pin Mode	| Definition |
 | ------ | -------	| ---------- |
 | "i" | input 	| Sets the pin to return either a 1 or 0 for high or low respectively |
 | "o" | output 	| Sets the pin as a digital output with a default value of 0 |
-| "p" | pwm output | Sets the pin as a Pulse Width Modulated pseudo analog output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
+| "p" | pwm output | Sets the )pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
 | "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implementes the INPUT_PULLUP pin mode detailed [here.][pullup]|
-| "a" | analog | Sets the pin as an analog input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analog pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be repurposed |
+| "a" | analogue | Sets the pin as an analogue input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analogue pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be re-purposed |
 
 ####Creating Arduino Motors
+The system also contains native support for basic stepper motors controlled via Arduino. These are created with 4 Arduino scannables aggregated into a single device. An example of this is present in the [localstation][localstation]. The standard template for these devices looks like this:
+
+MotorName = arduinoMotor.arduinoMotor("MotorName", stepsPerRotation, Pin1Scannable, Pin2Scannable, Pin3Scannable, Pin4Scannable)
+
+Here's a brief explanation of each component of the template and the values they support. 
+
+
+| Entry 	 	| Valid Inputs	| Definitions	|
+| -------------	| ------------- | ------------- |
+| MotorName	 	| Any non-null string 	| This is the name used to refer to the motor by GDA 	|
+| stepsPerRotation  	| Any integer | This value should be the number of steps it takes to make a full rotation in an 8 step cycle accounting for any gearing. |
+| PinXScannable 	| Any instance of arduinoScannable.arduinoScannable	| These 4 scannables will be used to control the individual pins required to manipulate the motor |
 
 ##Using GDA
+
+###Full Process Tutorial - From Blank SD through to 3D reconstruction
 
 
 ##Example Output Data
@@ -95,3 +112,4 @@ There are a pair of example datasets available [here.](https://alfred.diamond.ac
 [pi4j-pin-number]: http://pi4j.com/pins/model-3b-rev1.html
 [pwm]: https://www.arduino.cc/en/Tutorial/PWM
 [pullup]: https://www.arduino.cc/en/Tutorial/InputPullupSerial
+[raspbian]: https://www.raspberrypi.org/downloads/raspbian/
