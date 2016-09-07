@@ -27,7 +27,7 @@ There are a few things you need before installing GDA:
 - An Internet Connection
 
 ###Install Process
-Firstly, using `sudo raspi-config`, you'll need to enable the PiCamera (Option 6) and the I2C bus (Option 9 -> Option 6). Once you hit finish then the Pi should restart. Once it's booted up the easiest way to install GDA is using this command:
+Firstly, using `sudo raspi-config`, you'll need to enable the PiCamera (Option 6) and the I2C bus (Option 9 -> Option A6). Once you hit finish then the Pi should restart. Once it's booted up the easiest way to install GDA is using this command:
 ```
 curl -s –L opengda.org/getRpiServer | bash
 ```
@@ -71,7 +71,7 @@ Here's a brief explanation of each component of the template and the values they
 | ------ | -------	| ---------- |
 | "i" | input 	| Sets the pin to return either a 1 or 0 for high or low respectively |
 | "o" | output 	| Sets the pin as a digital output with a default value of 0 |
-| "p" | pwm output | Sets the )pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
+| "p" | pwm output | Sets the pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
 | "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implementes the INPUT_PULLUP pin mode detailed [here.][pullup]|
 | "a" | analogue | Sets the pin as an analogue input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analogue pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be re-purposed |
 
