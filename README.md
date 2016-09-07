@@ -14,7 +14,7 @@ This is the Raspberry Pi version of [GDA](http://www.opengda.org/).
 		- [PinModes](#pinmodes)
 		- [Creating Arduino Motors](#creating-arduino-motors)
 - [Using GDA on the Raspberry Pi](#using-gda-on-the-raspberry-pi)
-- [Full Process Tutorial - From Blank SD through to 3D rendered reconstruction](#full-process-tutorial---from-blank-sd-through-to-3d-rendered-reconstruction)
+- [Processing the Data](#processing-the-data)
 - [Example Output Data](#example-output-data)
 
 <!-- /MarkdownTOC -->
@@ -110,8 +110,10 @@ At this point you'll have to wait for a couple of minutes for it to start. The m
 	- To test individual devices, just use `pos scannableName`
 	- To set values for devices: `pos scannableName value`
 		- e.g. `pos LED1 1` will set the output of LED1 to 1
+- To perform a simple scan of an object, the command is simply `scan UNOmotor1 0 360 1 PiCamera`. This will take pictures at 1 degree intervals around the entire surface of the object which is sufficent for a reconstruction. The data will be stored in a `.dat` file stored in `~/gda_data_non_live` with the images in a subdirectory with the same name as the dat file. 
 
-##Full Process Tutorial - From Blank SD through to 3D rendered reconstruction
+##Processing the Data
+
 
 
 ##Example Output Data
