@@ -13,8 +13,8 @@ This is the Raspberry Pi version of [GDA](http://www.opengda.org/).
 	- [Creating Scannable Devices for Arduinos](#creating-scannable-devices-for-arduinos)
 		- [PinModes](#pinmodes)
 		- [Creating Arduino Motors](#creating-arduino-motors)
-- [Using GDA](#using-gda)
-	- [Full Process Tutorial - From Blank SD through to 3D reconstruction](#full-process-tutorial---from-blank-sd-through-to-3d-reconstruction)
+- [Using GDA on the Raspberry Pi](#using-gda-on-the-raspberry-pi)
+- [Full Process Tutorial - From Blank SD through to 3D rendered reconstruction](#full-process-tutorial---from-blank-sd-through-to-3d-rendered-reconstruction)
 - [Example Output Data](#example-output-data)
 
 <!-- /MarkdownTOC -->
@@ -89,9 +89,29 @@ Here's a brief explanation of each component of the template and the values they
 | stepsPerRotation  	| Any integer | This value should be the number of steps it takes to make a full rotation in an 8 step cycle accounting for any gearing. |
 | PinXScannable 	| Any instance of arduinoScannable.arduinoScannable	| These 4 scannables will be used to control the individual pins required to manipulate the motor |
 
-##Using GDA
+##Using GDA on the Raspberry Pi
+This is a rough list of steps required to start GDA and perform a scan based on the default configuration, there will be some variation depending on your implementation. 
+- Open a ssh connection to the Pi and enter root with `sudo su`
+- Use `./starthardware` to start up the hardware server
+- Opening a second connection to the pi, start GDA itself with `./startgda` 
+At this point you'll have to wait for a couple of minutes for it to start. The most obvious indication that it's completed is a few lines in the hardware server window showing various `CREATE` commands being carried out for the individual pins. 
+- Next open a telnet connection to the Pi on port 9999, you should be met with something like this:
 
-###Full Process Tutorial - From Blank SD through to 3D reconstruction
+```	
+    __________  ___ 
+   / ____/ __ \/   |
+  / / __/ / / / /| |   Welcome to GDA 
+ / /_/ / /_/ / ___ |   version 9.x.x
+ \____/_____/_/  |_|
+
+>>>
+```
+- The easiest way to test everything's working is to use the `pos` command which returns the current value of every device. 
+	- To test individual devices, just use `pos scannableName`
+	- To set values for devices: `pos scannableName value`
+		- e.g. `pos LED1 1` will set the output of LED1 to 1
+
+##Full Process Tutorial - From Blank SD through to 3D rendered reconstruction
 
 
 ##Example Output Data
