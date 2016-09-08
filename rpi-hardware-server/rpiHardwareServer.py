@@ -10,7 +10,7 @@ import time
 from java.lang import Thread, InterruptedException
 
 def socketSetup(port):
-    HOST = "p45-pi-01" # Symbolic name meaning all available interfaces 
+    HOST = "127.0.0.1" # Symbolic name meaning all available interfaces 
     PORT = port # Arbitrary non-privileged port 
     s = None
     for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM, 0, socket.AI_PASSIVE):

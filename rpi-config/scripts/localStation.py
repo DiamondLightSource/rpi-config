@@ -58,7 +58,7 @@ try:
     #Raspberry Pi Specific Objects
     #===================================================
     #RPi Communication Interface
-    rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk") #enter the Pi's IP address, localhost should work
+    rpiComms.initaliseCommunicator("127.0.0.1") #enter the Pi's IP address, 127.0.0.1 (localhost) should work
 
     #PiCamera Interface
     PiCamera = rpiCameraScannable.rpiCameraScannable("picamera") 
