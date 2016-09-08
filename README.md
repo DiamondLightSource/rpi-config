@@ -1,8 +1,9 @@
 # GDA for Raspberry Pi
 
 ##Overview
-This is the Raspberry Pi version of [GDA][gda]. 
+This is the Raspberry Pi version of [GDA][gda] produced as part of a summer internship by [Ben Seeley][ben] at [Diamond Light Source][dls]. This document outlines the basic installation and set-up process of the system as well as a very basic use case. For more detail on the function of the system, click [here][extras], and for a more thorough usage guide for GDA, click [here.][gda-docs]
 
+##Contents
 <!-- MarkdownTOC autolink="true" bracket="round" depth="4" -->
 
 - [Installation](#installation)
@@ -15,6 +16,7 @@ This is the Raspberry Pi version of [GDA][gda].
 		- [Creating Arduino Motors](#creating-arduino-motors)
 - [Using GDA on the Raspberry Pi](#using-gda-on-the-raspberry-pi)
 - [Example Output Data](#example-output-data)
+- [Thanks and acknowledgements](#thanks-and-acknowledgements)
 
 <!-- /MarkdownTOC -->
 
@@ -72,7 +74,7 @@ Here's a brief explanation of each component of the template and the values they
 | "i" | input 	| Sets the pin to return either a 1 or 0 for high or low respectively |
 | "o" | output 	| Sets the pin as a digital output with a default value of 0 |
 | "p" | pwm output | Sets the )pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
-| "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implementes the INPUT_PULLUP pin mode detailed [here.][pullup]|
+| "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implements the INPUT_PULLUP pin mode detailed [here.][pullup]|
 | "a" | analogue | Sets the pin as an analogue input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analogue pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be re-purposed |
 
 ####Creating Arduino Motors
@@ -110,14 +112,18 @@ At this point you'll have to wait for a couple of minutes for it to start. The m
 	- To set values for devices: `pos scannableName value`
 		- e.g. `pos LED1 1` will set the output of LED1 to 1
 
-One particularly useful thing to note is that all data files are written to `~/gda_data_non_live` as `.dat` as ASCII data files which can be examined in any text editor. 
+One particularly useful thing to note is that all data files are written to `~/gda_data_non_live` as `.dat` as ASCII data files which can be examined in any text editor. To get a more in depth look at how to use GDA, I recommend the User Guide available [here.][gda-docs]
 
-<!-- Reference openGDA's user guides here -->
-<!-- add link to new file detailing internals of system, especially all the control options and how the internal communications work-->
+To learn about the specifics of how the RPi and Arduino Scannables work, as well as the additional custom commands available, click [here.][extras]
 
 ##Example Output Data
 There are a pair of example datasets available [here.](https://alfred.diamond.ac.uk/GDA-RPi/) The data files alone are also available in [`/example-data`][example]
 
+
+##Thanks and acknowledgements
+I must thank [James Mudd][james], my supervisor for the project, as well as [Mark Basham][mark], [Colin Palmer][colin], and [Matthew Webber][matthew] for their help and advice over the course of the project. 
+
+Thanks are also owed to the rest of the [Diamond Software Team][dls-soft] and all the staff at [Diamond Light Source][dls] for being so friendly and accommodating over the course of the project.
 
 [arduino]: https://github.com/DiamondLightSource/rpi-config/tree/master/arduino/i2cArduinoClient
 [hardwareServer]: https://github.com/DiamondLightSource/rpi-config/blob/master/rpi-hardware-server/rpiHardwareServer.py
@@ -126,11 +132,20 @@ There are a pair of example datasets available [here.](https://alfred.diamond.ac
 [scripts]: https://github.com/DiamondLightSource/rpi-config/tree/master/rpi-config/scripts
 [localstation]: https://github.com/DiamondLightSource/rpi-config/blob/master/rpi-config/scripts/localStation.py
 [example]: https://github.com/DiamondLightSource/rpi-config/tree/master/example-data
-[docs]:https://github.com/DiamondLightSource/rpi-config/tree/master/docs
+[docs]: https://github.com/DiamondLightSource/rpi-config/tree/master/docs
 [pi4j]: http://pi4j.com/
 [pi4j-pin-number]: http://pi4j.com/pins/model-3b-rev1.html
 [pwm]: https://www.arduino.cc/en/Tutorial/PWM
 [pullup]: https://www.arduino.cc/en/Tutorial/InputPullupSerial
 [raspbian]: https://www.raspberrypi.org/downloads/raspbian/
 [gda]: http://www.opengda.org/
+[gda-docs]: http://www.opengda.org/documentation/manuals/GDA_User_Guide/trunk/contents.html
 [dawn]: http://dawnsci.org/
+[ben]: https://github.com/bseeley
+[dls]: http://www.diamond.ac.uk/Home.html
+[james]: https://github.com/jamesmudd
+[mark]: https://github.com/markbasham
+[matthew]: https://github.com/mwebber
+[colin]: https://github.com/colinpalmer
+[dls-soft]: https://github.com/DiamondLightSource
+[extras]: https://github.com/DiamondLightSource/rpi-config/tree/master/docs/featureDoc.md
