@@ -73,13 +73,8 @@ Here's a brief explanation of each component of the template and the values they
 | ------ | -------	| ---------- |
 | "i" | input 	| Sets the pin to return either a 1 or 0 for high or low respectively |
 | "o" | output 	| Sets the pin as a digital output with a default value of 0 |
-<<<<<<< HEAD
 | "p" | pwm output | Sets the )pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
 | "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implements the INPUT_PULLUP pin mode detailed [here.][pullup]|
-=======
-| "p" | pwm output | Sets the pin as a Pulse Width Modulated pseudo analogue output which can operate in a range of 0 - 255. Note hardware restrictions apply to which pins are capable of PWM. For more information about PWM on the arduino, click [here.][pwm] |
-| "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implementes the INPUT_PULLUP pin mode detailed [here.][pullup]|
->>>>>>> origin/master
 | "a" | analogue | Sets the pin as an analogue input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analogue pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be re-purposed |
 
 ####Creating Arduino Motors
