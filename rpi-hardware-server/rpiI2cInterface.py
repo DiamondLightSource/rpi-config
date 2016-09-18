@@ -12,7 +12,7 @@ class Interface():
     def __init__(self):
         self.bus = I2CFactory.getInstance(I2CBus.BUS_1)
     
-    def parse(self,num, instr, pinType, pinState, duration):
+    def parse(self, num, instr, pinType, pinState, duration):
         targetDevice = None
         for device in Interface.interfaceDevices:
             if device[0] == instr[1:]:

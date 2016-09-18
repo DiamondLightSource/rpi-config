@@ -3,6 +3,8 @@
 ##Overview
 This is the Raspberry Pi version of [GDA][gda] produced as part of a summer internship by [Ben Seeley][ben] at [Diamond Light Source][dls]. This document outlines the basic installation and set-up process of the system as well as a very basic use case. For more detail on the function of the system, click [here][extras], and for a more thorough usage guide for GDA, click [here.][gda-docs]
 
+Please note, this document is designed to be read in a browser, to see the original go to: github.com/DiamondLightSource/rpi-config/
+
 ##Contents
 <!-- MarkdownTOC autolink="true" bracket="round" depth="4" -->
 
