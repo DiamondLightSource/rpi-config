@@ -119,7 +119,7 @@ One particularly useful thing to note is that all data files are written to `~/g
 To learn about the specifics of how the RPi and Arduino Scannables work, as well as the additional custom commands available, click [here.][extras]
 
 ## Example Output Data
-There are a pair of example datasets available [here.](https://alfred.diamond.ac.uk/GDA-RPi/) The data files alone are also available in [`/example-data`][example]
+There are two sets of example raw datasets available [here.](https://alfred.diamond.ac.uk/GDA-RPi/) The `.dat` files alone and processed data files are available in [`/example-data`][example]
 
 
 ## Thanks and acknowledgements
