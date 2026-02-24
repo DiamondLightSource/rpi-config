@@ -1,11 +1,11 @@
 # GDA for Raspberry Pi
 
-##Overview
+## Overview
 This is the Raspberry Pi version of [GDA][gda] produced as part of a summer internship by [Ben Seeley][ben] at [Diamond Light Source][dls]. This document outlines the basic installation and set-up process of the system as well as a very basic use case. For more detail on the function of the system, click [here][extras], and for a more thorough usage guide for GDA, click [here.][gda-docs]
 
 Please note, this document is designed to be read in a browser, to see the original go to: github.com/DiamondLightSource/rpi-config/
 
-##Contents
+## Contents
 <!-- MarkdownTOC autolink="true" bracket="round" depth="4" -->
 
 - [Installation](#installation)
@@ -22,22 +22,22 @@ Please note, this document is designed to be read in a browser, to see the origi
 
 <!-- /MarkdownTOC -->
 
-##Installation
-###Requirements:
+## Installation
+### Requirements:
 There are a few things you need before installing GDA:
 - A Raspberry Pi 3 with a PiCamera
 - An SD card imaged with a clean install of Raspbian Lite
 	- Available [here.][raspbian]
 - An Internet Connection
 
-###Install Process
+### Install Process
 Firstly, using `sudo raspi-config`, you'll need to enable the PiCamera (Option 6) and the I2C bus (Option 9 -> Option A6). Once you hit finish then the Pi should restart. Once it's booted up the easiest way to install GDA is using this command:
 ```
 curl -s –L opengda.org/getRpiServer | bash
 ```
 This will run the [`./getServer`][getServer] script found in [`/rpi-deploy`][rpiDeploy] which will update the system, install all the dependant packages, get a copy of the GDA Server release product, and clone the full repo into the correct location for use by GDA. It's worth noting that it downloads several large packages as part of this process and will take upwards of 10 minutes. It will restart upon completion. 
 
-##Initial Setup
+## Initial Setup
 Inside [`/rpi-config/scripts`][scripts], there is a file, [`localstation.py`][localstation] which defines the initial setup of the system. There are a few key things to change from the default configuration, including:
 - In this line, `rpiComms.initaliseCommunicator("p45-pi-01.diamond.ac.uk")`, replace `"p45-pi-01.diamond.ac.uk"` with either the Pi's IP or `"localhost"`
 - If you'd like to run Arduino's as part of your deployment:
@@ -49,14 +49,14 @@ Inside [`/rpi-config/scripts`][scripts], there is a file, [`localstation.py`][lo
 	- Remove all the lines with an `UNO` prefix, like this: `UNOpwm1 = arduinoScannable.arduinoScannable("UNOpwm1", 3, "arduino-01","p")`
 	- From the main file of the [`hardware server`][hardwareServer] you need to remove everything in the Arduino Devices section. 
 
-###Creating Scannable Devices for GPIO Pins
+### Creating Scannable Devices for GPIO Pins
 All the pins on the Pi can be controlled individually using RPiScannables as shown in the example configuration in [`localstation.py`][localstation]. They follow a standard template which looks like this:
 
 PinName = rpiScannable.rpiScannable("PinName", PinNumber, "output" or "input")
 
 Bear in mind that the hardware server uses [Pi4J][pi4j] to control the GPIO and subsequently uses pi4j's pin numbering scheme, a diagram of which can be found [here.][pi4j-pin-number] (An additional copy is included in [`/docs`][docs])
 
-###Creating Scannable Devices for Arduinos
+### Creating Scannable Devices for Arduinos
 As with RPi scannables each pin on the Arduino can be controlled individually, however there are slightly more options available. The standard template looks like this:
 
 PinName = arduinoScannable.arduinoScannable("PinName", PinNumber, "DeviceName","PinMode")
@@ -70,7 +70,7 @@ Here's a brief explanation of each component of the template and the values they
 | DeviceName 	| Any string which corresponds to an i2c.createDevice statement in the [`hardware server`][hardwareServer]	| This name will be used to ensure that the pin is set up on the correct device |
 | PinMode		| See the table [below](#pinmodes)| Sets the operating mode of the pin |
 
-####PinModes
+#### PinModes
 | Pin Mode Values | Pin Mode	| Definition |
 | ------ | -------	| ---------- |
 | "i" | input 	| Sets the pin to return either a 1 or 0 for high or low respectively |
@@ -79,7 +79,7 @@ Here's a brief explanation of each component of the template and the values they
 | "u" | pullup input | Sets the pin as an input with its internal pullup resistor active, implements the INPUT_PULLUP pin mode detailed [here.][pullup]|
 | "a" | analogue | Sets the pin as an analogue input with a return value between 0 and 1023. This mode assumes that you're referencing one of the analogue pins. Note that on an arduino Uno A4 and A5 are required for i2c communications and so cannot be re-purposed |
 
-####Creating Arduino Motors
+#### Creating Arduino Motors
 The system also contains native support for basic stepper motors controlled via Arduino. These are created with 4 Arduino scannables aggregated into a single device. An example of this is present in the [localstation][localstation]. The standard template for these devices looks like this:
 
 MotorName = arduinoMotor.arduinoMotor("MotorName", stepsPerRotation, Pin1Scannable, Pin2Scannable, Pin3Scannable, Pin4Scannable)
@@ -92,7 +92,7 @@ Here's a brief explanation of each component of the template and the values they
 | stepsPerRotation  	| Any integer | This value should be the number of steps it takes to make a full rotation in an 8 step cycle accounting for any gearing. |
 | PinXScannable 	| Any instance of arduinoScannable.arduinoScannable	| These 4 scannables will be used to control the individual pins required to manipulate the motor |
 
-##Using GDA on the Raspberry Pi
+## Using GDA on the Raspberry Pi
 This is a rough list of steps required to start GDA and perform a scan based on the default configuration, there will be some variation depending on your implementation. 
 - Open a ssh connection to the Pi and enter root with `sudo su`
 - Use `./starthardware` to start up the hardware server
@@ -118,11 +118,11 @@ One particularly useful thing to note is that all data files are written to `~/g
 
 To learn about the specifics of how the RPi and Arduino Scannables work, as well as the additional custom commands available, click [here.][extras]
 
-##Example Output Data
+## Example Output Data
 There are a pair of example datasets available [here.](https://alfred.diamond.ac.uk/GDA-RPi/) The data files alone are also available in [`/example-data`][example]
 
 
-##Thanks and acknowledgements
+## Thanks and acknowledgements
 I must thank [James Mudd][james], my supervisor for the project, as well as [Mark Basham][mark], [Colin Palmer][colin], and [Matthew Webber][matthew] for their help and advice over the course of the project. 
 
 Thanks are also owed to the rest of the [Diamond Software Team][dls-soft] and all the staff at [Diamond Light Source][dls] for being so friendly and accommodating over the course of the project.
